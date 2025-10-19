@@ -5,7 +5,7 @@ import 'color.dart';
 
 class RoqquTheme {
   static final ThemeData appTheme = ThemeData(
-    fontFamily: ModernConstants.fontFamily,
+    fontFamily: RoqquConstants.fontFamily,
     colorScheme: ColorScheme.fromSeed(
       seedColor: RoqquColors.primary,
       brightness: Brightness.light,
@@ -24,7 +24,7 @@ class RoqquTheme {
         padding: EdgeInsetsGeometry.symmetric(vertical: 20, horizontal: 16),
 
         textStyle: TextStyle(
-          fontFamily: ModernConstants.fontFamily,
+          fontFamily: RoqquConstants.fontFamily,
 
           color: RoqquColors.white,
 
@@ -44,7 +44,7 @@ class RoqquTheme {
           borderRadius: BorderRadiusGeometry.circular(4),
         ),
         textStyle: TextStyle(
-          fontFamily: ModernConstants.fontFamily,
+          fontFamily: RoqquConstants.fontFamily,
 
           color: RoqquColors.white,
           fontSize: 18,

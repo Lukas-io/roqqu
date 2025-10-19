@@ -8,6 +8,12 @@ class RoqquAssets {
 
   //Images
   static const String logoImage = "$_images/logo.png";
+  static const String crownImage = "$_images/crown.png";
+  static const String bitcoinImage = "$_images/bitcoin.png";
+  static const String cardanoImage = "$_images/cardano.png";
+  static const String dogeImage = "$_images/doge.png";
+  static const String ethereumImage = "$_images/ethereum.png";
+  static const String tetherImage = "$_images/tether.png";
 
   //Svg
   static const String dropdownSvg = "$_svg/dropdown.svg";
@@ -20,4 +26,9 @@ class RoqquAssets {
   static const String depositSvg = "$_svg/Deposit.svg";
   static const String withdrawSvg = "$_svg/Withdraw.svg";
   static const String sendSvg = "$_svg/Send.svg";
+  static const String eyeSvg = "$_svg/eye.svg";
+  static const String eyeSlashSvg = "$_svg/eye-slash.svg";
+  static const String crownSvg = "$_svg/crown.svg";
+  static const String swapSvg = "$_svg/swap.svg";
+  static const String notificationBannerSvg = "$_svg/notification_banner.svg";
 }
