@@ -2,7 +2,7 @@ import 'dart:ui';
 
 class RoqquColors {
   static const Color primary = Color(0xFF020209);
-  static const Color background = Color(0xFFF7F9FA);
+  static const Color background = Color(0xFF1C2127);
 
   static const Color text = Color(0xFF090913);
   static const Color textSecondary = Color(0xFF8A8A8A);

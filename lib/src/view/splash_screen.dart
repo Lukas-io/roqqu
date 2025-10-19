@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:roqqu/src/core/assets.dart';
 import 'package:roqqu/src/core/extensions.dart';
-import 'package:roqqu/src/view/home_screen.dart';
+import 'package:roqqu/src/view/home/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

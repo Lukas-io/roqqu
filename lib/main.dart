@@ -14,6 +14,7 @@ class Roqqu extends StatelessWidget {
     return MaterialApp(
       title: 'Roqqu',
       theme: RoqquTheme.appTheme,
+      debugShowCheckedModeBanner: false,
       home: const SplashScreen(),
     );
   }
