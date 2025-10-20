@@ -1,14 +1,14 @@
 import 'package:roqqu/src/model/price_point.dart';
 
 class CryptoData {
-  final String symbol; // e.g., "BTCUSDT"
-  final String name; // e.g., "Bitcoin"
+  final String symbol;
+  final String name;
   final double currentPrice;
   final double priceChangePercent24h;
   final double volume24h;
   final double highPrice24h;
   final double lowPrice24h;
-  final List<PricePoint> historicalData; // 7-day data
+  final List<PricePoint> historicalData;
   final DateTime lastUpdated;
 
   CryptoData({

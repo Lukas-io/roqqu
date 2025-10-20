@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:roqqu/src/view/copy_trading/copy_home.dart';
 
 import '../../core/theme/color.dart';
 import '../widgets/roqqu_button.dart';
@@ -103,6 +104,7 @@ class _ComfortableRiskScreenState extends State<ComfortableRiskScreen> {
                                       horizontal: 7,
                                       vertical: 2,
                                     ),
+
                                     decoration: BoxDecoration(
                                       color: RoqquColors.link,
                                       borderRadius: const BorderRadius.only(
@@ -160,7 +162,15 @@ class _ComfortableRiskScreenState extends State<ComfortableRiskScreen> {
               border: Border.all(color: RoqquColors.border, width: 1.2),
             ),
             padding: EdgeInsetsGeometry.all(16.0),
-            child: RoqquButton(text: 'Proceed', onPressed: () {}),
+            child: RoqquButton(
+              text: 'Proceed',
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => CopyHome()),
+                );
+              },
+            ),
           ),
         ],
       ),

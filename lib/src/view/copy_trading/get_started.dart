@@ -99,7 +99,7 @@ class _GetStartedCopyTradingState extends State<GetStartedCopyTrading> {
             child: RoqquButton(
               text: 'Get started',
               onPressed: () {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                     builder: (context) => ComfortableRiskScreen(),

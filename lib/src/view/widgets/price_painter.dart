@@ -5,11 +5,13 @@ class PriceChartPainter extends CustomPainter {
   final List<double> prices;
   final Color lineColor;
   final Color gradientColor;
+  final double gradientOpacity;
 
   const PriceChartPainter({
     required this.prices,
     required this.lineColor,
     required this.gradientColor,
+    this.gradientOpacity = 0.35,
   });
 
   @override
@@ -59,7 +61,10 @@ class PriceChartPainter extends CustomPainter {
     final gradient = ui.Gradient.linear(
       const Offset(0, 0),
       Offset(0, size.height),
-      [gradientColor.withOpacity(0.35), gradientColor.withOpacity(0)],
+      [
+        gradientColor.withOpacity(gradientOpacity),
+        gradientColor.withOpacity(0),
+      ],
       [0.0, 1.0],
     );
 
