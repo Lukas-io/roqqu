@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:roqqu/src/core/assets.dart';
 import 'package:roqqu/src/core/theme/color.dart';
 import 'package:roqqu/src/view/copy_trading/initial_avatar.dart';
 
@@ -47,14 +50,30 @@ class _CopyTraderCardState extends State<CopyTraderCard> {
                           .map((name) => name.isNotEmpty ? name[0] : '')
                           .join()
                           .toUpperCase(),
+                      isPro: widget.trader.copiers.isEven,
                     ),
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           widget.trader.name,
                           style: const TextStyle(fontSize: 14),
                         ),
-                        Row(children: [Icon]),
+                        Row(
+                          children: [
+                            SvgPicture.asset(
+                              RoqquAssets.peopleSvg,
+                              color: RoqquColors.link,
+                            ),
+                            Text(
+                              '${widget.trader.copiers} people',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: RoqquColors.textLink,
+                              ),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                     Spacer(),
@@ -94,24 +113,53 @@ class _CopyTraderCardState extends State<CopyTraderCard> {
                     ),
                   ],
                 ),
-                Text(
-                  '${widget.trader.roi.toStringAsFixed(2)}%',
-                  style: TextStyle(
-                    color: isProfit ? Colors.green : Colors.red,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 12),
+                Divider(color: RoqquColors.border, height: 34),
+                Row(
+                  spacing: 32,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "ROI",
+                            style: const TextStyle(
+                              color: RoqquColors.textSecondary,
+                              fontSize: 13,
+                              height: 1,
+                            ),
+                          ),
+                          Text(
+                            '${isProfit ? "+" : ""}${widget.trader.roi.toStringAsFixed(2)}%',
+                            style: GoogleFonts.encodeSans(
+                              color: getChangeColor(isProfit ? 12 : -12),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 2),
+                          _buildStat(
+                            "Total P/L",
 
-                CustomPaint(
-                  painter: PriceChartPainter(
-                    prices: widget.trader.prices,
-                    lineColor: getChangeColor(90),
-                    gradientColor: getChangeColor(90),
-                  ),
-                  size: const Size(double.infinity, 52),
+                            format(widget.trader.totalProfitLoss),
+                            color: isProfit ? Colors.green : Colors.red,
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    Expanded(
+                      child: CustomPaint(
+                        painter: PriceChartPainter(
+                          prices: widget.trader.prices,
+                          lineColor: getChangeColor(widget.trader.roi),
+                          gradientColor: getChangeColor(widget.trader.roi),
+                        ),
+                        size: const Size(double.infinity, 52),
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 12),
               ],
             ),
           ),
@@ -123,19 +171,16 @@ class _CopyTraderCardState extends State<CopyTraderCard> {
               border: Border(top: BorderSide(color: RoqquColors.border)),
             ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              spacing: 4,
               children: [
-                _buildStat(
-                  "Win Rate",
-                  "${widget.trader.winRate.toStringAsFixed(1)}%",
+                _buildStat("Win Rate", "${widget.trader.winRate}%"),
+                Spacer(),
+                Icon(
+                  Icons.info_outline,
+                  color: RoqquColors.textSecondary,
+                  size: 14,
                 ),
-                _buildStat(
-                  "Total P/L",
-                  (isProfit ? "+" : "") +
-                      widget.trader.totalProfitLoss.toStringAsFixed(2),
-                  color: isProfit ? Colors.green : Colors.red,
-                ),
-                _buildStat("AUM", "\$${widget.trader.aum.toStringAsFixed(1)}K"),
+                _buildStat("AUM", format(widget.trader.aum)),
               ],
             ),
           ),
@@ -145,20 +190,26 @@ class _CopyTraderCardState extends State<CopyTraderCard> {
   }
 
   Widget _buildStat(String label, String value, {Color? color}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(label, style: const TextStyle(color: Colors.grey, fontSize: 12)),
-        const SizedBox(height: 2),
-        Text(
-          value,
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: color ?? Colors.black,
+    return RichText(
+      text: TextSpan(
+        children: [
+          TextSpan(
+            text: "$label: ",
+            style: const TextStyle(
+              color: RoqquColors.textSecondary,
+              fontSize: 13,
+            ),
           ),
-        ),
-      ],
+          TextSpan(
+            text: value,
+            style: GoogleFonts.encodeSans(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: RoqquColors.text,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

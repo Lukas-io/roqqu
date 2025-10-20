@@ -1,5 +1,5 @@
 import 'dart:math' as math;
-import 'dart:ui';
+import 'package:intl/intl.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -7,12 +7,28 @@ import 'package:roqqu/src/core/theme/color.dart';
 
 import 'assets.dart';
 
-String formatEuro(double value) {
-  if (value < 100) {
-    return '€${value.toStringAsFixed(2)}';
-  } else {
-    return '€${value.toStringAsFixed(0)}';
+final _formatter = NumberFormat('#,##0.00', 'en_US');
+
+/// Formats a price with commas and the Euro sign.
+///
+/// Example:
+/// ```dart
+/// PriceFormatter.format(12345.678); // €12,345.68
+/// PriceFormatter.format(500);       // €500.00
+/// ```
+String format(num value, {bool showCents = true, String currency = "€"}) {
+  if (value.abs() >= 100) {
+    showCents = false;
   }
+  bool isNegative = value < 0;
+  value = value.abs();
+  if (isNegative) currency = "-$currency";
+
+  if (!showCents) {
+    final noDecimalFormatter = NumberFormat('#,##0', 'en_US');
+    return '$currency${noDecimalFormatter.format(value)}';
+  }
+  return '$currency${_formatter.format(value)}';
 }
 
 Color getChangeColor(double value) {
@@ -25,14 +41,14 @@ Color getChangeColor(double value) {
   }
 }
 
-Widget changeArrow(double value) {
+Widget changeArrow(double value, {bool isSquiggle = false, double size = 8}) {
   return Transform.rotate(
     angle: value < 0 ? 270 * math.pi / 180 : 0,
     child: SvgPicture.asset(
-      RoqquAssets.changeArrowSvg,
+      isSquiggle ? RoqquAssets.arrowSvg : RoqquAssets.changeArrowSvg,
       color: getChangeColor(value),
-      height: 8,
-      width: 8,
+      height: size,
+      width: size,
     ),
   );
 }

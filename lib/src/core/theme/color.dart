@@ -10,7 +10,7 @@ class RoqquColors {
   static const Color textLink = Color(0xFF85D1F0);
   static const Color white = Color(0xFFFFFFFF);
 
-  static const Color buttonColor = Color(0xFF070710);
+  static const Color buttonColor = Color(0xFF2A2F36);
   static const Color active = Color(0xFF17B26A);
   static const Color error = Color(0xFFF04438);
   static const Color activeBlue = Color(0xFF1179F1);

@@ -6,6 +6,7 @@ import 'package:roqqu/src/core/utils.dart';
 import 'package:roqqu/src/view/home/listed_coins_preview_widget.dart';
 
 import '../../core/theme/color.dart';
+import '../widgets/crypto_pair_avatar.dart';
 import '../widgets/price_painter.dart';
 
 final prices = [120.0, 122.5, 121.0, 125.0, 128.0, 124.0];
@@ -72,7 +73,7 @@ class MovementScrollView extends StatelessWidget {
                         Row(
                           spacing: 8,
                           children: [
-                            Image.asset(crypto.image, height: 24, width: 24),
+                            CryptoPairAvatar(signalPair: crypto.pair, size: 24),
                             Text(
                               crypto.pair,
                               style: TextStyle(
@@ -85,7 +86,7 @@ class MovementScrollView extends StatelessWidget {
                         ),
                         SizedBox(height: 16),
                         Text(
-                          formatEuro(900),
+                          format(900),
                           style: GoogleFonts.encodeSans(
                             fontSize: 18,
                             color: RoqquColors.text,

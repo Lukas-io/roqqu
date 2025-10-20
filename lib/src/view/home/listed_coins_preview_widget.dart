@@ -5,6 +5,7 @@ import 'package:roqqu/src/core/constants.dart';
 import '../../core/assets.dart';
 import '../../core/theme/color.dart';
 import '../../core/utils.dart';
+import '../widgets/crypto_pair_avatar.dart';
 
 enum CryptoAsset {
   bitcoin(name: 'Bitcoin', pair: 'BTC', image: RoqquAssets.bitcoinImage),
@@ -79,8 +80,7 @@ class ListedCoinsPreviewWidget extends StatelessWidget {
                     child: Row(
                       spacing: 16,
                       children: [
-                        Image.asset(crypto.image, height: 36, width: 36),
-
+                        CryptoPairAvatar(signalPair: crypto.pair, size: 36),
                         Expanded(
                           child: Column(
                             spacing: 4,
@@ -112,7 +112,7 @@ class ListedCoinsPreviewWidget extends StatelessWidget {
                           spacing: 4,
                           children: [
                             Text(
-                              formatEuro(90),
+                              format(90),
                               style: GoogleFonts.encodeSans(
                                 fontSize: 14,
                                 color: RoqquColors.text,

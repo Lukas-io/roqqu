@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:roqqu/src/core/assets.dart';
 import 'package:roqqu/src/core/theme/color.dart';
 
 class InitialsAvatar extends StatelessWidget {
@@ -24,25 +25,40 @@ class InitialsAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final defaultTextStyle = TextStyle(
-      fontSize: size * 0.42,
+      fontSize: size * 0.35,
       fontWeight: FontWeight.w700,
       color: RoqquColors.text,
     );
 
-    return Container(
-      height: size,
-      width: size,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: backgroundColor,
-        border: Border.all(color: borderColor, width: borderWidth),
-      ),
-      alignment: Alignment.center,
-      child: Text(
-        initials.toUpperCase(),
-        style: textStyle ?? defaultTextStyle,
-        textAlign: TextAlign.center,
-      ),
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Container(
+          height: size,
+          width: size,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: backgroundColor,
+            border: Border.all(color: borderColor, width: borderWidth),
+          ),
+          alignment: Alignment.center,
+          child: Text(
+            initials.toUpperCase(),
+            style: textStyle ?? defaultTextStyle,
+            textAlign: TextAlign.center,
+          ),
+        ),
+        if (isPro)
+          Positioned(
+            bottom: -size / 4,
+            right: 0,
+            child: Image.asset(
+              RoqquAssets.proBadgeImage,
+              width: size / 2.5,
+              height: size / 2,
+            ),
+          ),
+      ],
     );
   }
 }

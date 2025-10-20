@@ -6,6 +6,8 @@ import 'package:roqqu/src/core/assets.dart';
 import 'package:roqqu/src/core/constants.dart';
 import 'package:roqqu/src/core/theme/color.dart';
 
+import '../../core/utils.dart';
+
 enum QuickActions {
   deposit('Deposit', RoqquAssets.depositSvg),
   buy('Buy', RoqquAssets.buySvg),
@@ -70,7 +72,7 @@ class _QuickBalanceWidgetState extends State<QuickBalanceWidget> {
               splashColor: Colors.transparent,
               child: RichText(
                 text: TextSpan(
-                  text: showBalance.value ? '£0' : '***',
+                  text: showBalance.value ? format(0, showCents: false) : '***',
 
                   style: GoogleFonts.encodeSans(
                     color: RoqquColors.text,

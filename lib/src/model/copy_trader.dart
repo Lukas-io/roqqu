@@ -67,7 +67,7 @@ final List<CopyTrader> traders = [
   CopyTrader(
     name: "LunaGrowth",
     roi: 37.9,
-    winRate: 71.0,
+    winRate: 71,
     totalProfitLoss: 9200,
     prices: [100, 107, 115, 130, 128, 140, 150],
     aum: 78.3,
