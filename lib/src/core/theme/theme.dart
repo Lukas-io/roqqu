@@ -8,7 +8,7 @@ class RoqquTheme {
     fontFamily: RoqquConstants.fontFamily,
     colorScheme: ColorScheme.fromSeed(
       seedColor: RoqquColors.primary,
-      brightness: Brightness.light,
+      brightness: Brightness.dark,
     ),
     scaffoldBackgroundColor: RoqquColors.background,
     appBarTheme: AppBarTheme(
@@ -18,6 +18,7 @@ class RoqquTheme {
       elevation: 0,
       scrolledUnderElevation: 0,
     ),
+
     inputDecorationTheme: InputDecorationThemeData(),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(

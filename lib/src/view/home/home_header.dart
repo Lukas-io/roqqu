@@ -31,9 +31,17 @@ class HomeHeader extends StatelessWidget {
               children: [
                 Text(
                   "Crypto",
-                  style: TextStyle(height: 1, fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                    height: 1,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black87,
+                  ),
                 ),
-                Icon(Icons.keyboard_arrow_down, size: 24),
+                Icon(
+                  Icons.keyboard_arrow_down,
+                  size: 24,
+                  color: Colors.black87,
+                ),
               ],
             ),
           ),
@@ -128,7 +136,11 @@ class HomeHeader extends StatelessWidget {
                       height: 20,
                       width: 20,
                     ),
-                    Icon(Icons.keyboard_arrow_down, size: 24),
+                    Icon(
+                      Icons.keyboard_arrow_down,
+                      size: 24,
+                      color: Colors.black87,
+                    ),
                   ],
                 ),
               ),

@@ -14,6 +14,9 @@ class RoqquAssets {
   static const String dogeImage = "$_images/doge.png";
   static const String ethereumImage = "$_images/ethereum.png";
   static const String tetherImage = "$_images/tether.png";
+  static const String mascotImage = "$_images/mascot.png";
+  static const String copyTrading1Image = "$_images/copy_trading1.png";
+  static const String copyTrading2Image = "$_images/copy_trading2.png";
 
   //Svg
   static const String dropdownSvg = "$_svg/dropdown.svg";
@@ -22,13 +25,14 @@ class RoqquAssets {
   static const String notificationSvg = "$_svg/notification.svg";
   static const String searchSvg = "$_svg/search.svg";
   static const String ukFlagSvg = "$_svg/uk_flag.svg";
-  static const String buySvg = "$_svg/Buy.svg";
-  static const String depositSvg = "$_svg/Deposit.svg";
-  static const String withdrawSvg = "$_svg/Withdraw.svg";
-  static const String sendSvg = "$_svg/Send.svg";
+  static const String buySvg = "$_svg/buy.svg";
+  static const String depositSvg = "$_svg/deposit.svg";
+  static const String withdrawSvg = "$_svg/withdraw.svg";
+  static const String sendSvg = "$_svg/send.svg";
   static const String eyeSvg = "$_svg/eye.svg";
   static const String eyeSlashSvg = "$_svg/eye-slash.svg";
   static const String crownSvg = "$_svg/crown.svg";
   static const String swapSvg = "$_svg/swap.svg";
   static const String notificationBannerSvg = "$_svg/notification_banner.svg";
+  static const String changeArrowSvg = "$_svg/change_arrow.svg";
 }
