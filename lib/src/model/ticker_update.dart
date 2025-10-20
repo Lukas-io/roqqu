@@ -20,14 +20,20 @@ class TickerUpdate {
   });
 
   factory TickerUpdate.fromJson(Map<String, dynamic> json) {
+    double safeParse(dynamic value, [double fallback = 0.0]) {
+      if (value == null) return fallback;
+      if (value is num) return value.toDouble();
+      return double.tryParse(value.toString()) ?? fallback;
+    }
+
     return TickerUpdate(
-      symbol: (json['s'] as String).toUpperCase(),
-      price: double.parse(json['c']),
-      priceChange: double.parse(json['p']),
-      priceChangePercent: double.parse(json['P']),
-      highPrice: double.parse(json['h']),
-      lowPrice: double.parse(json['l']),
-      volume: double.parse(json['v']),
+      symbol: (json['s'] ?? '').toString().toUpperCase(),
+      price: safeParse(json['c']),
+      priceChange: safeParse(json['p']),
+      priceChangePercent: safeParse(json['P']),
+      highPrice: safeParse(json['h']),
+      lowPrice: safeParse(json['l']),
+      volume: safeParse(json['v']),
       timestamp: DateTime.now(),
     );
   }

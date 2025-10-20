@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
+import 'dart:io';
 import 'package:get/get.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -19,11 +21,10 @@ class CryptoController extends GetxController {
   late StreamSubscription<dynamic> _streamSubscription;
 
   // Configuration
-  static const List<String> symbols = ['BTC', 'ETH', 'USDT', 'ADA', 'DOGE'];
+  static const List<String> symbols = ['BTC', 'ETH', 'ADA', 'DOGE'];
   static const Map<String, String> symbolNames = {
     'BTC': 'Bitcoin',
     'ETH': 'Ethereum',
-    'USDT': 'Tether',
     'ADA': 'Cardano',
     'DOGE': 'Dogecoin',
   };
@@ -63,38 +64,54 @@ class CryptoController extends GetxController {
   // Fetch 7-day history and initial ticker data
   Future<void> _fetchInitialData() async {
     try {
-      for (String symbol in symbols) {
-        final fullSymbol = '${symbol}USDT';
+      await Future.wait(
+        symbols.map((symbol) async {
+          final fullSymbol = '${symbol}USDT';
+          final history = await _service.fetchDayHistory(fullSymbol);
+          final ticker = await _service.fetch24hTicker(fullSymbol);
 
-        // Fetch historical data
-        final history = await _service.fetch7DayHistory(fullSymbol);
+          final updated = cryptoDataMap[symbol]!.copyWith(
+            currentPrice: ticker.price,
+            priceChangePercent24h: ticker.priceChangePercent,
+            volume24h: ticker.volume,
+            highPrice24h: ticker.highPrice,
+            lowPrice24h: ticker.lowPrice,
+            historicalData: history,
+            lastUpdated: DateTime.now(),
+          );
 
-        // Fetch initial ticker
-        final ticker = await _service.fetch24hTicker(fullSymbol);
+          cryptoDataMap[symbol] = updated;
 
-        // Update crypto data
-        final updated = cryptoDataMap[symbol]!.copyWith(
-          currentPrice: ticker.price,
-          priceChangePercent24h: ticker.priceChangePercent,
-          volume24h: ticker.volume,
-          highPrice24h: ticker.highPrice,
-          lowPrice24h: ticker.lowPrice,
-          historicalData: history,
-          lastUpdated: DateTime.now(),
-        );
-
-        cryptoDataMap[symbol] = updated;
-      }
+          update(); // UI updates as each Future completes
+        }),
+      );
 
       errorMessage.value = '';
     } catch (e) {
       errorMessage.value = 'Failed to fetch initial data: $e';
-      print('Error in _fetchInitialData: $e');
+      log('Error in _fetchInitialData: $e');
+    }
+  }
+
+  Future<bool> _hasInternet() async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      return result.isNotEmpty && result[0].rawAddress.isNotEmpty;
+    } catch (_) {
+      return false;
     }
   }
 
   // WebSocket connection
-  void _connectWebSocket() {
+  void _connectWebSocket() async {
+    if (!await _hasInternet()) {
+      errorMessage.value = 'No internet connection';
+      log('✗ No internet, cannot connect to WebSocket.');
+      _scheduleReconnect();
+      return;
+    }
+
+    log("Has internet");
     try {
       // Build combined stream URL for all pairs
       final streams = symbols
@@ -115,9 +132,9 @@ class CryptoController extends GetxController {
       isConnected.value = true;
       _reconnectAttempts = 0;
       errorMessage.value = '';
-      print('✓ WebSocket connected');
+      log('✓ WebSocket connected');
     } catch (e) {
-      print('✗ WebSocket connection failed: $e');
+      log('✗ WebSocket connection failed: $e');
       errorMessage.value = 'WebSocket connection failed';
       _scheduleReconnect();
     }
@@ -125,43 +142,44 @@ class CryptoController extends GetxController {
 
   void _onWebSocketData(dynamic message) {
     try {
-      final data = json.decode(message);
+      final data = message is String ? json.decode(message) : message;
+
+      if (data is! Map<String, dynamic>) return;
       final stream = data['stream'] as String;
       final ticker = data['data'] as Map<String, dynamic>;
 
       // Extract symbol from stream name (e.g., "btcusdt@ticker" -> "BTC")
       final symbol = stream.split('@')[0].replaceAll('usdt', '').toUpperCase();
 
-      if (cryptoDataMap.containsKey(symbol)) {
-        final update = TickerUpdate.fromJson(ticker);
+      if (!cryptoDataMap.containsKey(symbol)) return;
 
-        // Update the crypto data
-        final current = cryptoDataMap[symbol]!;
-        final updated = current.copyWith(
-          currentPrice: update.price,
-          priceChangePercent24h: update.priceChangePercent,
-          volume24h: update.volume,
-          highPrice24h: update.highPrice,
-          lowPrice24h: update.lowPrice,
-          lastUpdated: DateTime.now(),
-        );
+      final update = TickerUpdate.fromJson(ticker);
 
-        cryptoDataMap[symbol] = updated;
-      }
+      // Update the crypto data
+      final current = cryptoDataMap[symbol]!;
+      final updated = current.copyWith(
+        currentPrice: update.price,
+        priceChangePercent24h: update.priceChangePercent,
+        volume24h: update.volume,
+        highPrice24h: update.highPrice,
+        lowPrice24h: update.lowPrice,
+        lastUpdated: DateTime.now(),
+      );
+      cryptoDataMap[symbol] = updated;
     } catch (e) {
-      print('Error parsing WebSocket data: $e');
+      log('Error parsing WebSocket data: $e');
     }
   }
 
   void _onWebSocketError(error) {
-    print('WebSocket error: $error');
+    log('WebSocket error: $error');
     isConnected.value = false;
     errorMessage.value = 'WebSocket error: $error';
     _scheduleReconnect();
   }
 
   void _onWebSocketDone() {
-    print('WebSocket connection closed');
+    log('WebSocket connection closed');
     isConnected.value = false;
     _scheduleReconnect();
   }
@@ -175,7 +193,7 @@ class CryptoController extends GetxController {
         seconds: (2 * (1 << (_reconnectAttempts - 1))).toInt(),
       );
 
-      print(
+      log(
         'Reconnecting in ${delay.inSeconds}s (attempt $_reconnectAttempts/$_maxReconnectAttempts)',
       );
 
@@ -185,13 +203,13 @@ class CryptoController extends GetxController {
       });
     } else {
       errorMessage.value = 'Max reconnection attempts reached';
-      print('✗ Max reconnection attempts reached');
+      log('✗ Max reconnection attempts reached');
     }
   }
 
-  // ============================================================================
+  // ===========================================================================
   // GETTERS FOR UI/CALCULATIONS
-  // ============================================================================
+  // ===========================================================================
 
   /// Get single crypto data
   CryptoData? getCrypto(String symbol) => cryptoDataMap[symbol];
@@ -279,16 +297,6 @@ class CryptoController extends GetxController {
     return cryptoDataMap[symbol]?.historicalData ?? [];
   }
 
-  /// Format price to readable string
-  String formatPrice(double price) {
-    if (price >= 1) {
-      return price.toStringAsFixed(2);
-    } else if (price > 0) {
-      return price.toStringAsFixed(6);
-    }
-    return '0.00';
-  }
-
   /// Format percentage to readable string
   String formatPercentage(double percent) {
     return percent.toStringAsFixed(2);
@@ -298,7 +306,7 @@ class CryptoController extends GetxController {
   Future<void> refreshHistoricalData(String symbol) async {
     try {
       final fullSymbol = '${symbol}USDT';
-      final history = await _service.fetch7DayHistory(fullSymbol);
+      final history = await _service.fetchDayHistory(fullSymbol);
 
       final current = cryptoDataMap[symbol]!;
       final updated = current.copyWith(
@@ -310,7 +318,7 @@ class CryptoController extends GetxController {
       errorMessage.value = '';
     } catch (e) {
       errorMessage.value = 'Failed to refresh data: $e';
-      print('Error refreshing historical data: $e');
+      log('Error refreshing historical data: $e');
     }
   }
 

@@ -1,35 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:roqqu/src/controller/crypto_controller.dart';
 import 'package:roqqu/src/core/constants.dart';
 
-import '../../core/assets.dart';
 import '../../core/theme/color.dart';
 import '../../core/utils.dart';
 import '../widgets/crypto_pair_avatar.dart';
-
-enum CryptoAsset {
-  bitcoin(name: 'Bitcoin', pair: 'BTC', image: RoqquAssets.bitcoinImage),
-  ethereum(name: 'Ethereum', pair: 'ETH', image: RoqquAssets.ethereumImage),
-  cardano(name: 'Cardano', pair: 'ADA', image: RoqquAssets.cardanoImage),
-  doge(name: 'Dogecoin', pair: 'DOGE', image: RoqquAssets.dogeImage),
-  tether(name: 'Tether', pair: 'USDT', image: RoqquAssets.tetherImage);
-
-  final String name;
-  final String pair;
-  final String image;
-
-  const CryptoAsset({
-    required this.name,
-    required this.pair,
-    required this.image,
-  });
-}
 
 class ListedCoinsPreviewWidget extends StatelessWidget {
   const ListedCoinsPreviewWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final CryptoController controller = Get.find<CryptoController>();
     return Padding(
       padding: EdgeInsetsGeometry.symmetric(
         horizontal: RoqquConstants.horizontalPadding,
@@ -65,30 +49,63 @@ class ListedCoinsPreviewWidget extends StatelessWidget {
               borderRadius: BorderRadiusGeometry.circular(16),
             ),
             clipBehavior: Clip.hardEdge,
-            child: ListView.separated(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                final crypto = CryptoAsset.values[index];
-                return InkWell(
-                  // onTap: () {},
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0,
-                      vertical: 22.0,
-                    ),
-                    child: Row(
-                      spacing: 16,
-                      children: [
-                        CryptoPairAvatar(signalPair: crypto.pair, size: 36),
-                        Expanded(
-                          child: Column(
-                            spacing: 4,
+            child: Obx(
+              () => ListView.separated(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  final entry = controller.cryptoDataMap.entries
+                      .toList()[index];
 
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                  final symbol = entry.key;
+                  final data = entry.value;
+                  final name = entry.value.name;
+
+                  final price = data.currentPrice;
+                  final change = data.priceChangePercent24h;
+
+                  return InkWell(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                        vertical: 22.0,
+                      ),
+                      child: Row(
+                        spacing: 16,
+                        children: [
+                          CryptoPairAvatar(signalPair: symbol, size: 36),
+                          Expanded(
+                            child: Column(
+                              spacing: 4,
+
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  name,
+                                  style: GoogleFonts.encodeSans(
+                                    fontSize: 14,
+                                    color: RoqquColors.text,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                Text(
+                                  symbol,
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    letterSpacing: 1,
+
+                                    color: RoqquColors.textSecondary,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            spacing: 4,
                             children: [
                               Text(
-                                crypto.name,
+                                format(price),
                                 style: GoogleFonts.encodeSans(
                                   fontSize: 14,
                                   color: RoqquColors.text,
@@ -96,47 +113,24 @@ class ListedCoinsPreviewWidget extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                crypto.pair,
+                                "${change.toPrecision(2)}%",
                                 style: TextStyle(
                                   fontSize: 13,
-                                  letterSpacing: 1,
-
-                                  color: RoqquColors.textSecondary,
+                                  color: getChangeColor(change),
                                 ),
                               ),
                             ],
                           ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          spacing: 4,
-                          children: [
-                            Text(
-                              format(90),
-                              style: GoogleFonts.encodeSans(
-                                fontSize: 14,
-                                color: RoqquColors.text,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                            Text(
-                              "-12.0%",
-                              style: TextStyle(
-                                fontSize: 13,
-                                color: getChangeColor(-9.0),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              },
-              separatorBuilder: (context, index) {
-                return Divider(color: RoqquColors.border, height: 2);
-              },
-              itemCount: CryptoAsset.values.length,
+                  );
+                },
+                separatorBuilder: (context, index) {
+                  return Divider(color: RoqquColors.border, height: 2);
+                },
+                itemCount: controller.cryptoDataMap.length,
+              ),
             ),
           ),
         ],

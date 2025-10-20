@@ -42,4 +42,5 @@ class RoqquAssets {
   static const String copyDashboardSvg = "$_svg/copy_dashboard.svg";
   static const String peopleSvg = "$_svg/people.svg";
   static const String arrowSvg = "$_svg/arrow.svg";
+  static const String verifiedBanner = "$_svg/verified_banner.svg";
 }

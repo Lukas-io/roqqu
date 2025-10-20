@@ -9,6 +9,12 @@ class CopyTrader {
   final double totalVolume;
   final double tradingProfit;
 
+  // New fields
+  final int tradingDays;
+  final double profitShare; // as percentage, e.g., 15.0
+  final int totalOrders;
+  final bool isPro;
+
   CopyTrader({
     required this.name,
     required this.roi,
@@ -19,6 +25,10 @@ class CopyTrader {
     required this.copiers,
     required this.totalVolume,
     required this.tradingProfit,
+    required this.tradingDays,
+    required this.profitShare,
+    required this.totalOrders,
+    required this.isPro,
   });
 }
 
@@ -33,6 +43,10 @@ final List<CopyTrader> traders = [
     copiers: 3420,
     totalVolume: 996.28,
     tradingProfit: 278.81,
+    tradingDays: 43,
+    profitShare: 15.0,
+    totalOrders: 56,
+    isPro: true,
   ),
   CopyTrader(
     name: "Zen Capital",
@@ -44,6 +58,10 @@ final List<CopyTrader> traders = [
     copiers: 1890,
     totalVolume: 765.22,
     tradingProfit: 150.87,
+    tradingDays: 30,
+    profitShare: 12.0,
+    totalOrders: 40,
+    isPro: false,
   ),
   CopyTrader(
     name: "NovaInvest",
@@ -55,6 +73,10 @@ final List<CopyTrader> traders = [
     copiers: 420,
     totalVolume: 423.54,
     tradingProfit: -48.23,
+    tradingDays: 25,
+    profitShare: 8.0,
+    totalOrders: 20,
+    isPro: false,
   ),
   CopyTrader(
     name: "Skyline Traders",
@@ -66,6 +88,10 @@ final List<CopyTrader> traders = [
     copiers: 5780,
     totalVolume: 1123.66,
     tradingProfit: 380.12,
+    tradingDays: 50,
+    profitShare: 18.0,
+    totalOrders: 70,
+    isPro: true,
   ),
   CopyTrader(
     name: "Horizon Alpha",
@@ -77,6 +103,10 @@ final List<CopyTrader> traders = [
     copiers: 1330,
     totalVolume: 608.12,
     tradingProfit: 88.34,
+    tradingDays: 28,
+    profitShare: 10.0,
+    totalOrders: 35,
+    isPro: false,
   ),
   CopyTrader(
     name: "LunaGrowth",
@@ -88,6 +118,10 @@ final List<CopyTrader> traders = [
     copiers: 2675,
     totalVolume: 865.42,
     tradingProfit: 210.65,
+    tradingDays: 38,
+    profitShare: 14.0,
+    totalOrders: 50,
+    isPro: true,
   ),
   CopyTrader(
     name: "Titan Fund",
@@ -99,5 +133,9 @@ final List<CopyTrader> traders = [
     copiers: 820,
     totalVolume: 512.44,
     tradingProfit: 55.19,
+    tradingDays: 20,
+    profitShare: 7.0,
+    totalOrders: 18,
+    isPro: false,
   ),
 ];

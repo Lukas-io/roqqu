@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:roqqu/src/core/theme/color.dart';
+import 'package:roqqu/src/core/utils.dart';
 import 'package:roqqu/src/model/trading_entry.dart';
 import 'package:roqqu/src/view/dashboard/trading_entry_card.dart';
-import 'package:roqqu/src/view/widgets/price_painter.dart';
+import '../../controller/crypto_controller.dart';
+import '../widgets/price_chart_painter.dart';
 
 class ChartTab extends StatelessWidget {
   const ChartTab({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final CryptoController controller = Get.find<CryptoController>();
+
     return Container(
       color: RoqquColors.card,
       child: Column(
@@ -62,14 +67,16 @@ class ChartTab extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 12.0),
-                  child: CustomPaint(
-                    painter: PriceChartPainter(
-                      prices: [90, 89, 110, 120, 127, 122, 110, 91],
-                      lineColor: Colors.green,
-                      gradientColor: Colors.green,
-                    ),
-                    size: const Size(double.infinity, 200),
-                  ),
+                  child: Obx(() {
+                    final crypto = controller.cryptoDataMap["BTC"];
+                    return CustomPaint(
+                      painter: PriceChartPainter(
+                        pricePoints: crypto?.historicalData ?? [],
+                        lineColor: getChangeColor(crypto?.currentPrice ?? 0),
+                      ),
+                      size: Size(double.infinity, 200),
+                    );
+                  }),
                 ),
               ],
             ),

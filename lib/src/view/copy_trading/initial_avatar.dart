@@ -24,7 +24,7 @@ class InitialsAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = backgroundColor ?? getRandomColor();
+    final color = backgroundColor ?? getColorFromString(initials);
     final defaultTextStyle = TextStyle(
       fontSize: size * 0.35,
       fontWeight: FontWeight.w700,

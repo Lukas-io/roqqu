@@ -7,16 +7,21 @@ import 'package:roqqu/src/core/theme/color.dart';
 
 import 'assets.dart';
 
-import 'dart:math';
+Color getColorFromString(String value) {
+  // Define your three colors
+  const colors = [
+    Color(0xFFF79009), // orange
+    Color(0xFF5283FF), // blue
+    Color(0xFF85D1F0), // light blue
+  ];
 
-Color getRandomColor() {
-  const colors = [Color(0xFFF79009), Color(0xFF5283FF), Color(0xFF85D1F0)];
+  // Use the string to generate a stable hash
+  final hash = value.codeUnits.fold(0, (prev, elem) => prev + elem);
 
-  final random = Random();
-  return colors[random.nextInt(colors.length)];
+  // Map hash to a color index
+  final index = hash % colors.length;
+  return colors[index];
 }
-
-final _formatter = NumberFormat('#,##0.00', 'en_US');
 
 /// Formats a price with commas and the Euro sign.
 ///
@@ -25,10 +30,16 @@ final _formatter = NumberFormat('#,##0.00', 'en_US');
 /// PriceFormatter.format(12345.678); // €12,345.68
 /// PriceFormatter.format(500);       // €500.00
 /// ```
-String format(num value, {bool showCents = true, String currency = "€"}) {
+String format(num value, {bool showCents = true, String currency = "\$"}) {
   if (value.abs() >= 100) {
     showCents = false;
   }
+  NumberFormat formatter;
+  formatter = NumberFormat('#,##0.00', 'en_US');
+  if (value.abs() < 1) {
+    formatter = NumberFormat('#,##0.000', 'en_US');
+  }
+
   bool isNegative = value < 0;
   value = value.abs();
   if (isNegative) currency = "-$currency";
@@ -37,7 +48,7 @@ String format(num value, {bool showCents = true, String currency = "€"}) {
     final noDecimalFormatter = NumberFormat('#,##0', 'en_US');
     return '$currency${noDecimalFormatter.format(value)}';
   }
-  return '$currency${_formatter.format(value)}';
+  return '$currency${formatter.format(value)}';
 }
 
 Color getChangeColor(double value) {

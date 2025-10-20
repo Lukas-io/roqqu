@@ -46,16 +46,26 @@ class _CryptoTabViewState extends State<CryptoTabView> {
 
   @override
   Widget build(BuildContext context) {
-    final cryptos = [
-      {'name': 'Bitcoin', 'icon': 'assets/images/bitcoin.png', 'change': 20.4},
+    final buying = [
+      {'name': 'Bitcoin', 'icon': 'assets/images/bitcoin.png', 'change': 42.43},
       {
         'name': 'Ethereum',
         'icon': 'assets/images/ethereum.png',
-        'change': 10.2,
+        'change': 23.2,
       },
-      {'name': 'Cardano', 'icon': 'assets/images/cardano.png', 'change': 10.5},
-      {'name': 'DogeCoin', 'icon': 'assets/images/doge.png', 'change': 30.9},
-      {'name': 'Tether', 'icon': 'assets/images/tether.png', 'change': 12.0},
+      {'name': 'Cardano', 'icon': 'assets/images/cardano.png', 'change': 17.5},
+      {'name': 'DogeCoin', 'icon': 'assets/images/doge.png', 'change': 4.9},
+    ];
+    final selling = [
+      {
+        'name': 'Ethereum',
+        'icon': 'assets/images/ethereum.png',
+        'change': 32.2,
+      },
+      {'name': 'Bitcoin', 'icon': 'assets/images/bitcoin.png', 'change': 28.43},
+
+      {'name': 'Cardano', 'icon': 'assets/images/cardano.png', 'change': 27.5},
+      {'name': 'DogeCoin', 'icon': 'assets/images/doge.png', 'change': 12.9},
     ];
 
     return DefaultTabController(
@@ -107,8 +117,8 @@ class _CryptoTabViewState extends State<CryptoTabView> {
             () => AnimatedSwitcher(
               duration: 300.ms,
               child: _currentTabIndex.value == 0
-                  ? SocialMetricsView(cryptos: cryptos, isBuy: true)
-                  : SocialMetricsView(cryptos: cryptos, isBuy: false),
+                  ? SocialMetricsView(cryptos: buying)
+                  : SocialMetricsView(cryptos: selling),
             ),
           ),
         ],
@@ -119,13 +129,8 @@ class _CryptoTabViewState extends State<CryptoTabView> {
 
 class SocialMetricsView extends StatelessWidget {
   final List<Map<String, dynamic>> cryptos;
-  final bool isBuy;
 
-  const SocialMetricsView({
-    super.key,
-    required this.cryptos,
-    required this.isBuy,
-  });
+  const SocialMetricsView({super.key, required this.cryptos});
 
   @override
   Widget build(BuildContext context) {

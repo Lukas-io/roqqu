@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:roqqu/src/core/assets.dart';
-import 'package:roqqu/src/view/dashboard/dashboard.dart';
+import 'package:roqqu/src/model/copy_trader.dart';
+import 'package:roqqu/src/view/dashboard/dashboard_screen.dart';
 
 import '../../core/theme/color.dart';
+import '../trader/trader_screen.dart';
 
 class CopyHomeHeader extends StatelessWidget {
   const CopyHomeHeader({super.key});
@@ -24,7 +26,7 @@ class CopyHomeHeader extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Dashboard()),
+                MaterialPageRoute(builder: (context) => DashboardScreen()),
               );
             },
           ),
@@ -36,7 +38,12 @@ class CopyHomeHeader extends StatelessWidget {
             iconPath: RoqquAssets.proTraderSvg,
             backgroundImage: RoqquAssets.traderImage,
             onTap: () {
-              // handle navigation
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TraderScreen(trader: traders.first),
+                ),
+              );
             },
           ),
         ),

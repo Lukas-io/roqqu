@@ -1,13 +1,13 @@
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
-class PriceChartPainter extends CustomPainter {
+class MinimalPriceChartPainter extends CustomPainter {
   final List<double> prices;
   final Color lineColor;
   final Color gradientColor;
   final double gradientOpacity;
 
-  const PriceChartPainter({
+  const MinimalPriceChartPainter({
     required this.prices,
     required this.lineColor,
     required this.gradientColor,
@@ -79,7 +79,7 @@ class PriceChartPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant PriceChartPainter oldDelegate) =>
+  bool shouldRepaint(covariant MinimalPriceChartPainter oldDelegate) =>
       oldDelegate.prices != prices ||
       oldDelegate.lineColor != lineColor ||
       oldDelegate.gradientColor != gradientColor;
