@@ -68,7 +68,7 @@ class StatsTab extends StatelessWidget {
               spacing: 12,
               children: [
                 Text(
-                  "Trading statistics",
+                  "Trading pairs",
                   style: GoogleFonts.encodeSans(
                     fontSize: 13,
                     fontWeight: FontWeight.bold,

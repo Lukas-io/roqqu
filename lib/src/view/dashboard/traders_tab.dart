@@ -9,7 +9,9 @@ import '../../core/theme/color.dart';
 import '../../model/copy_trader.dart';
 
 class TradersTab extends StatefulWidget {
-  const TradersTab({super.key});
+  final String title;
+
+  const TradersTab(this.title, {super.key});
 
   @override
   State<TradersTab> createState() => _TradersTabState();
@@ -26,7 +28,6 @@ class _TradersTabState extends State<TradersTab> {
 
     _tapTimer?.cancel();
     _tapTimer = Timer(const Duration(milliseconds: 200), () {
-      // reset after timer
       _canRegister = false;
     });
   }
@@ -64,7 +65,7 @@ class _TradersTabState extends State<TradersTab> {
                   vertical: 4,
                 ),
 
-                hintText: "Search for PRO traders",
+                hintText: "Search for ${widget.title}",
                 suffixIcon: AnimatedSwitcher(
                   duration: const Duration(milliseconds: 250),
                   switchInCurve: Curves.easeOut,

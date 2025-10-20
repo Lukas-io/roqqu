@@ -24,6 +24,7 @@ class DashboardScreen extends StatelessWidget {
         child: SafeArea(
           child: Column(
             spacing: 12,
+
             children: [DashboardHeader(), DashboardContent()],
           ),
         ),

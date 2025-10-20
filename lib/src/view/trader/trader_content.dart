@@ -1,32 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:roqqu/src/core/theme/color.dart';
-import 'package:roqqu/src/view/dashboard/stats_tab.dart';
-import 'package:roqqu/src/view/dashboard/traders_tab.dart';
+import 'package:roqqu/src/view/trader/all_trades_tab.dart';
 
-import 'chart_tab.dart';
-import 'current_trades_tab.dart';
+import '../../core/theme/color.dart';
+import '../dashboard/chart_tab.dart';
+import '../dashboard/stats_tab.dart';
+import '../dashboard/traders_tab.dart';
 
-enum CopyTabs {
-  chart('Chart', ChartTab()),
-  currentTrades('Current trades', CurrentTradesTab()),
+enum TraderTabs {
+  chart('Chart', ChartTab(isTrader: true)),
   stats('Stats', StatsTab()),
-  myTraders('My traders', TradersTab("PRO traders"));
+  currentTrades('All trades', AllTradesTab()),
+  myTraders('Copiers', TradersTab("copiers"));
 
   final String title;
   final Widget widget;
 
-  const CopyTabs(this.title, this.widget);
+  const TraderTabs(this.title, this.widget);
 }
 
-class DashboardContent extends StatefulWidget {
-  const DashboardContent({super.key});
+class TraderContent extends StatefulWidget {
+  const TraderContent({super.key});
 
   @override
-  State<DashboardContent> createState() => _DashboardContentState();
+  State<TraderContent> createState() => _TraderContentState();
 }
 
-class _DashboardContentState extends State<DashboardContent> {
+class _TraderContentState extends State<TraderContent> {
   final _currentTabIndex = 0.obs;
 
   @override
@@ -39,7 +39,7 @@ class _DashboardContentState extends State<DashboardContent> {
       clipBehavior: Clip.hardEdge,
 
       child: DefaultTabController(
-        length: CopyTabs.values.length,
+        length: TraderTabs.values.length,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -76,12 +76,12 @@ class _DashboardContentState extends State<DashboardContent> {
                   fontSize: 13,
                 ),
 
-                tabs: CopyTabs.values
+                tabs: TraderTabs.values
                     .map(
                       (tab) => Tab(
                         child: Padding(
                           padding: EdgeInsetsGeometry.symmetric(
-                            horizontal: 17.1,
+                            horizontal: 23.5,
                           ),
                           child: Text(tab.title),
                         ),
@@ -90,10 +90,11 @@ class _DashboardContentState extends State<DashboardContent> {
                     .toList(),
               ),
             ),
+
             Obx(
               () => IndexedStack(
                 index: _currentTabIndex.value,
-                children: CopyTabs.values.map((tab) => tab.widget).toList(),
+                children: TraderTabs.values.map((tab) => tab.widget).toList(),
               ),
             ),
           ],

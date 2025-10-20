@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:roqqu/src/core/theme/color.dart';
+import 'package:roqqu/src/core/utils.dart';
 
 import '../../model/trading_entry.dart';
 import '../copy_trading/initial_avatar.dart';
@@ -9,12 +10,6 @@ class TradingEntryCard extends StatelessWidget {
   final TradingEntry entry;
 
   const TradingEntryCard({super.key, required this.entry});
-
-  Color getRoiColor() {
-    if (entry.roi > 0) return Colors.green;
-    if (entry.roi < 0) return Colors.red;
-    return Colors.grey;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +41,7 @@ class TradingEntryCard extends StatelessWidget {
                 Text(
                   '${entry.roi > 0 ? '+' : ''}${entry.roi.toStringAsFixed(2)}% ROI',
                   style: TextStyle(
-                    color: getRoiColor(),
+                    color: getChangeColor(entry.roi),
                     fontWeight: FontWeight.w500,
                     fontSize: 14,
                   ),

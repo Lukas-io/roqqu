@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:roqqu/src/core/constants.dart';
 import 'package:roqqu/src/model/copy_trader.dart';
+import 'package:roqqu/src/view/trader/copy_trade_bottom_sheet.dart';
+import 'package:roqqu/src/view/trader/trader_content.dart';
 import 'package:roqqu/src/view/trader/trader_header.dart';
 
 import '../../core/theme/color.dart';
+import '../widgets/roqqu_button.dart';
 
 class TraderScreen extends StatelessWidget {
   final CopyTrader trader;
@@ -21,10 +22,33 @@ class TraderScreen extends StatelessWidget {
           style: TextStyle(color: RoqquColors.text, fontSize: 18),
         ),
       ),
-      body: SingleChildScrollView(
-        padding: EdgeInsetsGeometry.all(RoqquConstants.horizontalPadding),
-
-        child: Column(children: [TraderHeader(trader)]),
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              padding: EdgeInsetsGeometry.all(RoqquConstants.horizontalPadding),
+              child: Column(
+                spacing: 12,
+                children: [TraderHeader(trader), TraderContent()],
+              ),
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              color: RoqquColors.card,
+              border: Border.all(color: RoqquColors.border, width: 1.2),
+            ),
+            padding: EdgeInsetsGeometry.all(16.0),
+            child: IntrinsicHeight(
+              child: RoqquButton(
+                text: 'Copy trade',
+                onPressed: () {
+                  CopyTradeBottomSheet.show(context);
+                },
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
