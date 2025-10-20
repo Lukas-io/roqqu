@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:roqqu/src/controller/user_controller.dart';
 import 'package:roqqu/src/core/assets.dart';
 import 'package:roqqu/src/core/constants.dart';
 import 'package:roqqu/src/core/theme/color.dart';
@@ -28,7 +29,7 @@ class QuickBalanceWidget extends StatefulWidget {
 }
 
 class _QuickBalanceWidgetState extends State<QuickBalanceWidget> {
-  final showBalance = false.obs;
+  final controller = Get.find<UserController>();
 
   @override
   Widget build(BuildContext context) {
@@ -48,14 +49,12 @@ class _QuickBalanceWidgetState extends State<QuickBalanceWidget> {
               ),
               Obx(
                 () => InkWell(
-                  onTap: () {
-                    showBalance.value = !showBalance.value;
-                  },
+                  onTap: () => controller.toggleBalanceVisibility(),
                   borderRadius: BorderRadius.circular(360),
                   child: Padding(
                     padding: const EdgeInsets.all(6.0),
                     child: SvgPicture.asset(
-                      showBalance.value
+                      controller.showBalance.value
                           ? RoqquAssets.eyeSvg
                           : RoqquAssets.eyeSlashSvg,
                     ),
@@ -66,13 +65,14 @@ class _QuickBalanceWidgetState extends State<QuickBalanceWidget> {
           ),
           Obx(
             () => InkWell(
-              onTap: () {
-                showBalance.value = !showBalance.value;
-              },
+              onTap: () => controller.toggleBalanceVisibility(),
+
               splashColor: Colors.transparent,
               child: RichText(
                 text: TextSpan(
-                  text: showBalance.value ? format(0, showCents: false) : '***',
+                  text: controller.showBalance.value
+                      ? format(controller.balance, showCents: false)
+                      : '***',
 
                   style: GoogleFonts.encodeSans(
                     color: RoqquColors.text,
@@ -82,7 +82,9 @@ class _QuickBalanceWidgetState extends State<QuickBalanceWidget> {
                   ),
                   children: [
                     TextSpan(
-                      text: showBalance.value ? '.00' : '',
+                      text: controller.showBalance.value
+                          ? '.${controller.balanceFraction.toStringAsFixed(2).substring(2)}'
+                          : '',
                       style: GoogleFonts.encodeSans(
                         fontSize: 18,
                         fontWeight: FontWeight.w800,

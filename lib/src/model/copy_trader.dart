@@ -6,6 +6,8 @@ class CopyTrader {
   final List<double> prices;
   final double aum;
   final int copiers;
+  final double totalVolume;
+  final double tradingProfit;
 
   CopyTrader({
     required this.name,
@@ -15,6 +17,8 @@ class CopyTrader {
     required this.prices,
     required this.aum,
     required this.copiers,
+    required this.totalVolume,
+    required this.tradingProfit,
   });
 }
 
@@ -27,6 +31,8 @@ final List<CopyTrader> traders = [
     prices: [100, 110, 130, 128, 145, 160, 175],
     aum: 95.2,
     copiers: 3420,
+    totalVolume: 996.28,
+    tradingProfit: 278.81,
   ),
   CopyTrader(
     name: "Zen Capital",
@@ -36,6 +42,8 @@ final List<CopyTrader> traders = [
     prices: [100, 102, 108, 112, 120, 118, 130],
     aum: 60.4,
     copiers: 1890,
+    totalVolume: 765.22,
+    tradingProfit: 150.87,
   ),
   CopyTrader(
     name: "NovaInvest",
@@ -45,6 +53,8 @@ final List<CopyTrader> traders = [
     prices: [100, 98, 95, 90, 87, 92, 88],
     aum: 22.1,
     copiers: 420,
+    totalVolume: 423.54,
+    tradingProfit: -48.23,
   ),
   CopyTrader(
     name: "Skyline Traders",
@@ -54,6 +64,8 @@ final List<CopyTrader> traders = [
     prices: [100, 115, 130, 150, 170, 200, 210],
     aum: 120.9,
     copiers: 5780,
+    totalVolume: 1123.66,
+    tradingProfit: 380.12,
   ),
   CopyTrader(
     name: "Horizon Alpha",
@@ -63,6 +75,8 @@ final List<CopyTrader> traders = [
     prices: [100, 105, 108, 110, 115, 118, 122],
     aum: 48.6,
     copiers: 1330,
+    totalVolume: 608.12,
+    tradingProfit: 88.34,
   ),
   CopyTrader(
     name: "LunaGrowth",
@@ -72,6 +86,8 @@ final List<CopyTrader> traders = [
     prices: [100, 107, 115, 130, 128, 140, 150],
     aum: 78.3,
     copiers: 2675,
+    totalVolume: 865.42,
+    tradingProfit: 210.65,
   ),
   CopyTrader(
     name: "Titan Fund",
@@ -81,5 +97,7 @@ final List<CopyTrader> traders = [
     prices: [100, 102, 104, 101, 103, 107, 105],
     aum: 33.5,
     copiers: 820,
+    totalVolume: 512.44,
+    tradingProfit: 55.19,
   ),
 ];

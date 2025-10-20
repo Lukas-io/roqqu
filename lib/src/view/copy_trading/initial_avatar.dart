@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:roqqu/src/core/assets.dart';
 import 'package:roqqu/src/core/theme/color.dart';
 
+import '../../core/utils.dart';
+
 class InitialsAvatar extends StatelessWidget {
   final String initials;
   final double size;
-  final Color borderColor;
   final double borderWidth;
-  final Color backgroundColor;
+  final Color? backgroundColor;
   final TextStyle? textStyle;
   final bool isPro;
 
@@ -15,15 +16,15 @@ class InitialsAvatar extends StatelessWidget {
     super.key,
     required this.initials,
     this.size = 40,
-    this.borderColor = const Color(0xFF5283FF),
     this.borderWidth = 1,
-    this.backgroundColor = const Color(0xFF283349),
+    this.backgroundColor,
     this.textStyle,
     this.isPro = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    final color = backgroundColor ?? getRandomColor();
     final defaultTextStyle = TextStyle(
       fontSize: size * 0.35,
       fontWeight: FontWeight.w700,
@@ -38,8 +39,8 @@ class InitialsAvatar extends StatelessWidget {
           width: size,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: backgroundColor,
-            border: Border.all(color: borderColor, width: borderWidth),
+            color: color.withOpacity(0.14),
+            border: Border.all(color: color, width: borderWidth),
           ),
           alignment: Alignment.center,
           child: Text(

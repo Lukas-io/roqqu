@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:roqqu/src/core/theme/theme.dart';
 import 'package:roqqu/src/view/splash_screen.dart';
 
+import 'initialize.dart';
+
 void main() {
+  initialize();
   runApp(const Roqqu());
 }
 

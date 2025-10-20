@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:roqqu/src/core/theme/color.dart';
 
 import '../../model/trading_statistic.dart';
 
@@ -47,9 +48,11 @@ class TradingStatisticsList extends StatelessWidget {
 
     return ListView.separated(
       shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
+      physics: NeverScrollableScrollPhysics(),
       itemCount: stats.length,
-      separatorBuilder: (_, __) => const Divider(height: 20),
+      padding: EdgeInsetsGeometry.symmetric(vertical: 16),
+      separatorBuilder: (_, __) =>
+          const Divider(height: 20, color: RoqquColors.border),
       itemBuilder: (context, index) {
         final stat = stats[index];
         return _StatTile(stat: stat);
@@ -65,42 +68,30 @@ class _StatTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        color: Colors.grey.shade100,
-        border: Border.all(color: Colors.grey.shade300),
-      ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        spacing: 32,
         children: [
-          /// Left section — Title and Date
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                stat.title,
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
+          Expanded(
+            child: Text(
+              stat.title,
+              maxLines: 2,
+              style: const TextStyle(
+                fontSize: 13,
+                color: RoqquColors.textSecondary,
+                fontWeight: FontWeight.w500,
               ),
-              const SizedBox(height: 4),
-              Text(
-                stat.date,
-                style: const TextStyle(fontSize: 11, color: Colors.grey),
-              ),
-            ],
+            ),
           ),
 
-          /// Right section — Value
           Text(
             stat.value,
             style: const TextStyle(
-              fontSize: 16,
+              fontSize: 14,
               fontWeight: FontWeight.bold,
-              color: Colors.black,
+              color: RoqquColors.text,
             ),
           ),
         ],

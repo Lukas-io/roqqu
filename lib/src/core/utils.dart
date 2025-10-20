@@ -7,6 +7,15 @@ import 'package:roqqu/src/core/theme/color.dart';
 
 import 'assets.dart';
 
+import 'dart:math';
+
+Color getRandomColor() {
+  const colors = [Color(0xFFF79009), Color(0xFF5283FF), Color(0xFF85D1F0)];
+
+  final random = Random();
+  return colors[random.nextInt(colors.length)];
+}
+
 final _formatter = NumberFormat('#,##0.00', 'en_US');
 
 /// Formats a price with commas and the Euro sign.
