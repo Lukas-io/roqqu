@@ -91,37 +91,61 @@ class _ComfortableRiskScreenState extends State<ComfortableRiskScreen> {
                           onTap: () {
                             selectedRisk.value = risk;
                           },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: selectedRisk.value == risk
-                                    ? RoqquColors.link
-                                    : Colors.transparent,
+                          borderRadius: BorderRadius.circular(16),
+                          child: Stack(
+                            children: [
+                              if (selectedRisk.value == risk)
+                                Positioned(
+                                  top: 0,
+                                  right: 0,
+                                  child: Container(
+                                    padding: EdgeInsetsGeometry.symmetric(
+                                      horizontal: 7,
+                                      vertical: 2,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: RoqquColors.link,
+                                      borderRadius: const BorderRadius.only(
+                                        topRight: Radius.circular(16),
+                                        bottomLeft: Radius.circular(16),
+                                      ),
+                                    ),
+                                    child: Icon(Icons.check_rounded, size: 18),
+                                  ),
+                                ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: selectedRisk.value == risk
+                                        ? RoqquColors.link
+                                        : Colors.transparent,
+                                  ),
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                padding: EdgeInsets.all(16),
+                                child: Column(
+                                  spacing: 8,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      risk.title,
+                                      style: GoogleFonts.encodeSans(
+                                        fontSize: 16,
+                                        color: RoqquColors.text,
+                                        fontWeight: FontWeight.w800,
+                                      ),
+                                    ),
+                                    Text(
+                                      risk.description,
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: RoqquColors.textSecondary,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                            padding: EdgeInsets.all(16),
-                            child: Column(
-                              spacing: 8,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  risk.title,
-                                  style: GoogleFonts.encodeSans(
-                                    fontSize: 16,
-                                    color: RoqquColors.text,
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                                ),
-                                Text(
-                                  risk.description,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: RoqquColors.textSecondary,
-                                  ),
-                                ),
-                              ],
-                            ),
+                            ],
                           ),
                         ),
                       )
