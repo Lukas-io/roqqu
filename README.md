@@ -21,7 +21,6 @@ Built with Flutter, animated by intent, and guided by simplicity.
 - Smooth animations and transitions throughout the UI
 - Copy trading flow and trader selection
 - Biometric authentication
-- Fund transfer functionality
 - Responsive design across different screen sizes
 
 ---
@@ -71,7 +70,6 @@ WebSocket API to deliver live cryptocurrency prices and market updates.
 - **Animated UI**: Smooth transitions and visual feedback using Flutter Animate
 - **Biometric Authentication**: Secure login with fingerprint or face recognition
 - **Market Analytics**: Detailed statistics and historical data visualization
-- **Fund Transfers**: Secure movement of assets between accounts
 
 ---
 
@@ -245,23 +243,6 @@ The app emphasizes:
 - **Rhythm**: Consistent motion and timing
 - **Expressiveness**: Meaningful animations and transitions
 - **Character**: Use of FormaDJR/Encode font for warmth and personality
-
----
-
-## 📸 Demo
-
-*(Note: Include screenshots or GIFs showing key features like the home screen, real-time price
-updates, copy trading flow, and biometric authentication)*
-
----
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a pull request
 
 ---
 
