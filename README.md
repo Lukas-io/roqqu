@@ -24,12 +24,31 @@ Built with Flutter, animated by intent, and guided by simplicity.
 - Fund transfer functionality
 - Responsive design across different screen sizes
 
-### 📸 Screenshots
+### 📱 App Screenshots
 
- ![Home Screen](screenshots/home.png) | ![Copy Trading](screenshots/copy_trading.png) | ![Market Data](screenshots/market.png) 
-|:------------------------------------:|:---------------------------------------------:|:--------------------------------------:|
-|             Home Screen              |                 Copy Trading                  |             Real-time Data             |
-
+<div style="
+  overflow-x: auto;
+  white-space: nowrap;
+  padding-bottom: 10px;
+  scroll-behavior: smooth;
+">
+  <img src="https://github.com/user-attachments/assets/c307ace1-da9f-42cf-8e88-d81449875cf5" alt="Screenshot 1" style="width: 250px; height: auto; margin-right: 8px; border-radius: 8px;" />
+  <img src="https://github.com/user-attachments/assets/040de716-b8fe-490c-bb8d-ebafc7a165dd" alt="Screenshot 2" style="width: 250px; height: auto; margin-right: 8px; border-radius: 8px;" />
+  <img src="https://github.com/user-attachments/assets/63deccad-bb74-4faa-8c47-aa2ac65cae34" alt="Screenshot 3" style="width: 250px; height: auto; margin-right: 8px; border-radius: 8px;" />
+  <img src="https://github.com/user-attachments/assets/da2bf5bc-f63b-4eae-9a7f-f186249922b5" alt="Screenshot 4" style="width: 250px; height: auto; margin-right: 8px; border-radius: 8px;" />
+  <img src="https://github.com/user-attachments/assets/fc972dfc-f666-4762-9728-747e56c294c5" alt="Screenshot 5" style="width: 250px; height: auto; margin-right: 8px; border-radius: 8px;" />
+  <img src="https://github.com/user-attachments/assets/7dd983ee-d2e2-4f3f-8b6b-46a639bbfd88" alt="Screenshot 6" style="width: 250px; height: auto; margin-right: 8px; border-radius: 8px;" />
+  <img src="https://github.com/user-attachments/assets/df935945-b624-4fbc-9e66-b5823083cbfd" alt="Screenshot 7" style="width: 250px; height: auto; margin-right: 8px; border-radius: 8px;" />
+  <img src="https://github.com/user-attachments/assets/a028cf2a-3744-45b0-bc86-5ca0b7cac994" alt="Screenshot 8" style="width: 250px; height: auto; margin-right: 8px; border-radius: 8px;" />
+  <img src="https://github.com/user-attachments/assets/03e18a5c-e6ee-483d-8910-054921a98c8a" alt="Screenshot 9" style="width: 250px; height: auto; margin-right: 8px; border-radius: 8px;" />
+  <img src="https://github.com/user-attachments/assets/71a1ed6a-34ea-4317-b32a-f4b51235a9a8" alt="Screenshot 10" style="width: 250px; height: auto; margin-right: 8px; border-radius: 8px;" />
+  <img src="https://github.com/user-attachments/assets/10ec9426-ae0e-4fb9-b2af-b03cee2a3fa0" alt="Screenshot 11" style="width: 250px; height: auto; margin-right: 8px; border-radius: 8px;" />
+  <img src="https://github.com/user-attachments/assets/b6c799a3-2542-467d-a34f-cfafb3f599b3" alt="Screenshot 12" style="width: 250px; height: auto; margin-right: 8px; border-radius: 8px;" />
+  <img src="https://github.com/user-attachments/assets/c64e371e-127f-44d6-b702-7bde4127406e" alt="Screenshot 13" style="width: 250px; height: auto; margin-right: 8px; border-radius: 8px;" />
+  <img src="https://github.com/user-attachments/assets/e1c66c05-f759-4c55-bba9-35a9dcab2399" alt="Screenshot 14" style="width: 250px; height: auto; margin-right: 8px; border-radius: 8px;" />
+  <img src="https://github.com/user-attachments/assets/12a4bb69-3760-4478-aa84-e4f262ed9cd9" alt="Screenshot 15" style="width: 250px; height: auto; margin-right: 8px; border-radius: 8px;" />
+  <img src="https://github.com/user-attachments/assets/5f1368f5-aafa-4955-b152-23551f1fb41d" alt="Screenshot 16" style="width: 250px; height: auto; margin-right: 8px; border-radius: 8px;" />
+</div>
 ---
 
 ## 📱 Overview
