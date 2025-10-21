@@ -13,7 +13,7 @@ Built with Flutter, animated by intent, and guided by simplicity.
 
 ### 🎥 Video Walkthrough
 
-[**▶️ Watch the app in action**](https://youtu.be/vkZisDMJOvU)
+[**▶️ Watch the app in action**](https://youtu.be/vkZisDMJOvU](https://youtu.be/0Hutg5knaME)
 
 *The video demonstrates:*
 
