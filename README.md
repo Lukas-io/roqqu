@@ -27,7 +27,7 @@ Built with Flutter, animated by intent, and guided by simplicity.
 ---
 
 <details>
-  <summary><h1>📱 ▼' View App Screenshots</h1></summary>
+  <summary><h2>📱 ▼ View App Screenshots</h2></summary>
   <br>
   
 <div style="
