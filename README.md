@@ -9,7 +9,9 @@ Built with Flutter, animated by intent, and guided by simplicity.
 
 ---
 
-## 📱 Demo
+## 📱 Demo Gif (Check out the complete application on YT below)
+![roqqu](https://github.com/user-attachments/assets/e99a4e3d-3f92-40d4-b2b0-c91aa87ef57c)
+
 
 ### 🎥 Video Walkthrough
 
