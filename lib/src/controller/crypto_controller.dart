@@ -30,10 +30,12 @@ class CryptoController extends GetxController {
     'DOGE': 'Dogecoin',
   };
 
-  final CryptoService _service = CryptoService();
+  final CryptoService _service;
   int _reconnectAttempts = 0;
   Timer? _reconnectTimer;
   static const int _maxReconnectAttempts = 5;
+
+  CryptoController({CryptoService? service}) : _service = service ?? CryptoService();
 
   @override
   void onInit() {

@@ -7,7 +7,9 @@ import '../model/ticker_update.dart';
 import 'api_client.dart';
 
 class CryptoService {
-  final ApiClient _api = ApiClient();
+  final ApiClient _api;
+
+  CryptoService({ApiClient? apiClient}) : _api = apiClient ?? ApiClient();
 
   Future<List<PricePoint>> fetchDayHistory(String symbol) async {
     try {
