@@ -61,92 +61,42 @@ class TraderHeader extends StatelessWidget {
           ],
         ),
         SizedBox(height: 24),
-        Row(
+        Wrap(
           spacing: 8,
-          crossAxisAlignment: CrossAxisAlignment.end,
-
+          direction: Axis.horizontal,
           children: [
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Color(0xFFA7B1BC).withOpacity(0.08),
-                  borderRadius: BorderRadiusGeometry.circular(6),
-                ),
-                padding: EdgeInsetsGeometry.symmetric(
-                  horizontal: 8,
-                  vertical: 8,
-                ),
-                alignment: AlignmentGeometry.center,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "${trader.tradingDays} trading days",
-                      style: const TextStyle(
-                        color: RoqquColors.textSecondary,
-                        fontSize: 13,
-                        height: 1,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Color(0xFFA7B1BC).withOpacity(0.08),
-                  borderRadius: BorderRadiusGeometry.circular(6),
-                ),
-                padding: EdgeInsetsGeometry.symmetric(
-                  horizontal: 8,
-                  vertical: 8,
-                ),
-                alignment: AlignmentGeometry.center,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "${trader.profitShare}% profit-share",
-                      style: const TextStyle(
-                        color: RoqquColors.textSecondary,
-                        fontSize: 13,
-                        height: 1,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Color(0xFFA7B1BC).withOpacity(0.08),
-                  borderRadius: BorderRadiusGeometry.circular(6),
-                ),
-                padding: EdgeInsetsGeometry.symmetric(
-                  horizontal: 8,
-                  vertical: 8,
-                ),
-                alignment: AlignmentGeometry.center,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "${trader.totalOrders} total orders",
-                      style: const TextStyle(
-                        color: RoqquColors.textSecondary,
-                        fontSize: 13,
-                        height: 1,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            TraderInfoChip("${trader.tradingDays} trading days"),
+            TraderInfoChip("${trader.profitShare}% profit-share"),
+            TraderInfoChip("${trader.totalOrders} total orders"),
           ],
         ),
       ],
+    );
+  }
+}
+
+class TraderInfoChip extends StatelessWidget {
+  final String label;
+
+  const TraderInfoChip(this.label, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: const Color(0xFFA7B1BC).withOpacity(0.08),
+        borderRadius: BorderRadius.circular(6),
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+      child: Text(
+        label,
+        maxLines: 1,
+        style: const TextStyle(
+          color: RoqquColors.textSecondary,
+          fontSize: 13,
+          height: 1,
+        ),
+      ),
     );
   }
 }
