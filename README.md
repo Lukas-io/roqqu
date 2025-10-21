@@ -2,16 +2,44 @@
 
 > *"Code flows. Bytes breathe. The app awakens."*
 
-A mystical take on a crypto mobile experience — where design meets rhythm and code becomes expression.  
+A mystical take on a crypto mobile experience — where design meets rhythm and code becomes
+expression.  
 Built with Flutter, animated by intent, and guided by simplicity.
+
+
+---
+
+## 📱 Demo
+
+### 🎥 Video Walkthrough
+
+[**▶️ Watch the app in action**](YOUR_VIDEO_LINK_HERE)
+
+*The video demonstrates:*
+
+- Real-time cryptocurrency price updates via WebSocket
+- Smooth animations and transitions throughout the UI
+- Copy trading flow and trader selection
+- Biometric authentication
+- Fund transfer functionality
+- Responsive design across different screen sizes
+
+### 📸 Screenshots
+
+ ![Home Screen](screenshots/home.png) | ![Copy Trading](screenshots/copy_trading.png) | ![Market Data](screenshots/market.png) 
+|:------------------------------------:|:---------------------------------------------:|:--------------------------------------:|
+|             Home Screen              |                 Copy Trading                  |             Real-time Data             |
 
 ---
 
 ## 📱 Overview
 
-Roqqu is a comprehensive cryptocurrency trading application that provides real-time market data, copy trading capabilities, and an intuitive user interface. The app connects to the Binance WebSocket API to deliver live cryptocurrency prices and market updates.
+Roqqu is a comprehensive cryptocurrency trading application that provides real-time market data,
+copy trading capabilities, and an intuitive user interface. The app connects to the Binance
+WebSocket API to deliver live cryptocurrency prices and market updates.
 
 ### Key Features
+
 - **Real-time Market Data**: Live cryptocurrency prices via Binance WebSocket API
 - **Copy Trading**: Follow successful traders with risk-based investment options
 - **Animated UI**: Smooth transitions and visual feedback using Flutter Animate
@@ -24,6 +52,7 @@ Roqqu is a comprehensive cryptocurrency trading application that provides real-t
 ## 🛠️ Technical Specifications
 
 ### Essential Info
+
 - **Project Name**: Roqqu
 - **Flutter Version**: SDK ^3.9.2
 - **State Management**: GetX
@@ -31,6 +60,7 @@ Roqqu is a comprehensive cryptocurrency trading application that provides real-t
 - **Supported Cryptocurrencies**: BTC, ETH, ADA, DOGE
 
 ### Dependencies
+
 - `get`: ^4.7.2 (State management)
 - `dio`: ^5.9.0 (HTTP client)
 - `web_socket_channel`: ^3.0.3 (WebSocket communication)
@@ -46,14 +76,16 @@ Roqqu is a comprehensive cryptocurrency trading application that provides real-t
 ## 🚀 Setup Instructions
 
 ### Prerequisites
+
 - Flutter SDK ^3.9.2
 - Android Studio or Xcode for mobile development
 - CocoaPods (for iOS development)
 
 ### Installation Steps
+
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/Lukas-io/roqqu.git
    cd roqqu
    ```
 
@@ -70,33 +102,27 @@ Roqqu is a comprehensive cryptocurrency trading application that provides real-t
    ```
 
 ### How to Run
+
 1. Connect a device or start an emulator
 2. Run the app:
    ```bash
    flutter run
    ```
 
-### Building for Release
-- **Android**:
-  ```bash
-  flutter build apk
-  ```
-- **iOS**:
-  ```bash
-  flutter build ios
-  ```
-
 ---
 
 ## 🏗️ Implementation Notes
 
 ### Key Architectural Decisions
-- **Clean Architecture**: Separation of concerns with distinct layers for business logic, data models, services, and UI
+
+- **Clean Architecture**: Separation of concerns with distinct layers for business logic, data
+  models, services, and UI
 - **GetX State Management**: Lightweight reactive state management solution
 - **Repository Pattern**: Centralized data access through service layer
 - **Responsive Design**: Adaptive UI for different screen sizes
 
 ### Folder Structure
+
 ```
 lib/
 ├── src/
@@ -116,6 +142,7 @@ lib/
 ```
 
 ### Notable Features
+
 1. **Real-time WebSocket Integration**: Continuous data streaming from Binance
 2. **Intelligent Reconnection Logic**: Exponential backoff strategy for network resilience
 3. **Advanced Charting**: Custom painters for price visualization
@@ -123,12 +150,14 @@ lib/
 5. **Smooth Animations**: Physics-based animations using Sprung library
 
 ### Challenges & Solutions
+
 1. **WebSocket Connection Management**: Implemented exponential backoff reconnection strategy
 2. **Data Synchronization**: Used reactive programming with GetX for seamless UI updates
 3. **Memory Management**: Proper disposal of streams and controllers to prevent leaks
 4. **Cross-platform Compatibility**: Unified approach for iOS and Android biometric authentication
 
 ### Known Limitations
+
 - Currently supports only 4 major cryptocurrencies (BTC, ETH, ADA, DOGE)
 - No offline mode for market data
 - Limited trading pair options (USDT pairs only)
@@ -138,18 +167,37 @@ lib/
 ## 🧪 Testing Approach
 
 ### Unit Tests
+
+The project includes comprehensive unit tests for business logic, data models, and services:
+
 - **Controller Tests**: Business logic validation for CryptoController
 - **Model Tests**: Data structure integrity and copyWith functionality
 - **Service Tests**: API interaction and error handling with mocked responses
 
-### Widget Tests
-- **UI Component Tests**: Verification of widget rendering and user interactions
-- **Integration Tests**: End-to-end testing of critical user flows
+### Running Tests
+
+To run only the unit tests (recommended approach):
+
+```bash
+./run_unit_tests.sh
+```
+
+Or manually:
+
+```bash
+flutter test test/unit
+```
 
 ### Test Dependencies
+
 - `flutter_test`: Core testing framework
 - `mockito`: Mocking framework for unit tests
 - `build_runner`: Code generation for mocks
+
+### Widget Testing
+
+Widget tests are not included in the automated test suite as they require manual testing with the
+Flutter debugger for optimal results.
 
 ---
 
@@ -166,16 +214,18 @@ lib/
 ## 🎨 Design Philosophy
 
 The app emphasizes:
+
 - **Simplicity**: Clean, uncluttered interfaces
 - **Rhythm**: Consistent motion and timing
 - **Expressiveness**: Meaningful animations and transitions
-- **Character**: Use of FormaDJR font for warmth and personality
+- **Character**: Use of FormaDJR/Encode font for warmth and personality
 
 ---
 
 ## 📸 Demo
 
-*(Note: Include screenshots or GIFs showing key features like the home screen, real-time price updates, copy trading flow, and biometric authentication)*
+*(Note: Include screenshots or GIFs showing key features like the home screen, real-time price
+updates, copy trading flow, and biometric authentication)*
 
 ---
 
