@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:roqqu/src/core/assets.dart';
 import 'package:roqqu/src/core/theme/color.dart';
 import 'package:roqqu/src/view/copy_trading/initial_avatar.dart';
+import 'package:roqqu/src/view/transfer/enter_amount_screen.dart';
 
 import '../../core/utils.dart';
 import '../../model/copy_trader.dart';
@@ -111,7 +112,15 @@ class _CopyTraderCardState extends State<CopyTraderCard>
                           ),
                           Spacer(),
                           InkWell(
-                            onTap: () => isCopied.value = true,
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      EnterAmountScreen(trader: widget.trader),
+                                ),
+                              );
+                            },
                             borderRadius: BorderRadius.circular(8),
                             child: Container(
                               padding: EdgeInsetsGeometry.symmetric(

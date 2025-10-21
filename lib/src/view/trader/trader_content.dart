@@ -50,49 +50,105 @@ class _TraderContentState extends State<TraderContent> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (widget.trader.isPro)
-              Container(
-                padding: EdgeInsetsGeometry.symmetric(
-                  vertical: 16,
-                  horizontal: 16,
-                ),
-                decoration: BoxDecoration(
-                  color: RoqquColors.background,
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(16),
-                    topRight: Radius.circular(16),
-                  ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Certified PROtrader',
-                      style: GoogleFonts.encodeSans(
-                        fontSize: 14,
-                        color: RoqquColors.text,
-                        fontWeight: FontWeight.w700,
+              Stack(
+                children: [
+                  Container(
+                    padding: EdgeInsetsGeometry.symmetric(
+                      vertical: 16,
+                      horizontal: 16,
+                    ),
+                    decoration: BoxDecoration(
+                      color: RoqquColors.background,
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(16),
+                        topRight: Radius.circular(16),
                       ),
                     ),
-                    Row(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          child: Row(
-                            children: [
-                              SvgPicture.asset(RoqquAssets.rateSvg),
-                              Text(
-                                'High win rate',
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  color: RoqquColors.active,
-                                ),
-                              ),
-                            ],
+                        SizedBox(height: 4),
+
+                        Text(
+                          'Certified PROtrader',
+                          style: GoogleFonts.encodeSans(
+                            fontSize: 14,
+                            color: RoqquColors.text,
+                            fontWeight: FontWeight.w700,
                           ),
+                        ),
+                        SizedBox(height: 8),
+                        Row(
+                          spacing: 8,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                color: RoqquColors.active.withOpacity(0.08),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              padding: EdgeInsetsGeometry.symmetric(
+                                vertical: 2,
+                                horizontal: 8,
+                              ),
+                              child: Row(
+                                spacing: 4,
+                                children: [
+                                  SvgPicture.asset(
+                                    RoqquAssets.rateSvg,
+                                    height: 16,
+                                    width: 16,
+                                  ),
+                                  Text(
+                                    'High win rate',
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      color: RoqquColors.active,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: RoqquColors.warning.withOpacity(0.08),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              padding: EdgeInsetsGeometry.symmetric(
+                                vertical: 2,
+                                horizontal: 8,
+                              ),
+                              child: Row(
+                                spacing: 4,
+                                children: [
+                                  SvgPicture.asset(
+                                    RoqquAssets.chartSvg,
+                                    height: 16,
+                                    width: 16,
+                                  ),
+                                  Text(
+                                    'Great risk control',
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      color: RoqquColors.warning,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                  ],
-                ),
+                  ),
+                  Positioned(
+                    top: 16,
+                    right: 16,
+                    child: SvgPicture.asset(
+                      RoqquAssets.verifiedBannerSvg,
+                      color: RoqquColors.textSecondary,
+                    ),
+                  ),
+                ],
               ),
             Container(
               padding: const EdgeInsets.all(2),
