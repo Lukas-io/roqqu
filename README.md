@@ -24,6 +24,68 @@ Built with Flutter, animated by intent, and guided by simplicity.
 - Fund transfer functionality
 - Responsive design across different screen sizes
 
+---
+<style>
+  details {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 12px 16px;
+    background: #f9fafb;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  details[open] {
+    background: #f1f5f9;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  }
+
+  summary {
+    list-style: none;
+    font-weight: 600;
+    font-size: 16px;
+    color: #1e293b;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  summary::marker {
+    display: none;
+  }
+
+  /* Add hover + focus feedback */
+  summary:hover {
+    color: #0f172a;
+  }
+
+  details:hover {
+    background: #f1f5f9;
+  }
+
+  /* Add a small arrow icon */
+  summary::after {
+    content: "▾";
+    margin-left: auto;
+    font-size: 14px;
+    transition: transform 0.2s ease;
+  }
+
+  details[open] summary::after {
+    transform: rotate(-180deg);
+  }
+
+  /* Optional: smoother reveal */
+  details > *:not(summary) {
+    animation: fadeIn 0.25s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
 <details>
   <summary>📱 View App Screenshots</summary>
   <br>
@@ -53,6 +115,7 @@ Built with Flutter, animated by intent, and guided by simplicity.
 </div>
 
 </details>
+
 ---
 
 ## 📱 Overview
