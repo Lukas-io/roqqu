@@ -1,13 +1,29 @@
+import 'dart:ui';
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:roqqu/src/core/assets.dart';
+import 'package:roqqu/src/core/theme/color.dart';
+import 'package:roqqu/src/model/copy_trader.dart';
+import 'package:roqqu/src/view/trader/risk_bottom_sheet.dart';
+import 'package:roqqu/src/view/widgets/roqqu_button.dart';
+
+import '../transfer/enter_amount_screen.dart';
 
 class CopyTradeBottomSheet extends StatefulWidget {
-  const CopyTradeBottomSheet({super.key});
+  final CopyTrader trader;
 
-  static void show(context) => showModalBottomSheet(
+  const CopyTradeBottomSheet({super.key, required this.trader});
+
+  static void show(context, CopyTrader trader) => showModalBottomSheet(
     context: context,
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
-    builder: (_) => const CopyTradeBottomSheet(),
+    barrierColor: Colors.black.withOpacity(0.5),
+    builder: (_) => CopyTradeBottomSheet(trader: trader),
   );
 
   @override
@@ -15,100 +31,182 @@ class CopyTradeBottomSheet extends StatefulWidget {
 }
 
 class _CopyTradeBottomSheetState extends State<CopyTradeBottomSheet> {
-  bool isChecked = false;
+  RxBool isChecked = false.obs;
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Padding(
-        padding: EdgeInsets.only(top: 24, left: 24, right: 24),
-        child: SafeArea(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Header letters E F
-              Row(
-                children: const [
-                  Text(
-                    'E',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(width: 8),
-                  Text(
-                    'F',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
+    return BackdropFilter(
+      filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+      child: Material(
+        color: Colors.transparent,
+        child: Container(
+          decoration: BoxDecoration(
+            color: RoqquColors.background,
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
+            border: Border.all(color: RoqquColors.border),
+          ),
+          child: SafeArea(
+            child: Stack(
+              alignment: AlignmentGeometry.bottomCenter,
+              children: [
+                Positioned(
+                  top: 12,
+                  right: 12,
+                  child: IconButton.filled(
+                    onPressed: () => Navigator.pop(context),
+                    style: IconButton.styleFrom(
+                      padding: EdgeInsetsGeometry.all(8),
 
-              // Title
-              const Text(
-                'Important message!',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8),
-
-              // Body
-              const Text(
-                'Don’t invest unless you’re prepared and understand the risks involved in copy trading. Learn more about the risks.',
-                style: TextStyle(fontSize: 14, color: Colors.black87),
-              ),
-              const SizedBox(height: 16),
-
-              // Checkbox
-              Row(
-                children: [
-                  Checkbox(
-                    value: isChecked,
-                    onChanged: (value) {
-                      setState(() {
-                        isChecked = value ?? false;
-                      });
-                    },
-                  ),
-                  const Expanded(
-                    child: Text(
-                      'Check this box to agree to Roqqu’s copy trading policy',
-                      style: TextStyle(fontSize: 14),
+                      minimumSize: Size.zero,
+                      backgroundColor: RoqquColors.buttonColor,
+                    ),
+                    icon: Icon(
+                      CupertinoIcons.xmark,
+                      color: Colors.white,
+                      size: 14,
                     ),
                   ),
-                ],
-              ),
-              const SizedBox(height: 16),
+                ),
+                Padding(
+                  padding: EdgeInsetsGeometry.symmetric(
+                    vertical: 24,
+                    horizontal: 18,
+                  ),
 
-              // Buttons
-              Row(
-                children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: isChecked
-                          ? () {
-                              // Proceed action
-                              Navigator.pop(context);
-                            }
-                          : null,
-                      child: const Text('Proceed to copy trade'),
-                    ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SizedBox(height: 24),
+                      Image.asset(
+                        RoqquAssets.importantMessageImage,
+                        height: 128,
+                        width: 128,
+                      ),
+                      Text(
+                        'Important message!',
+                        style: GoogleFonts.encodeSans(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: RichText(
+                          textAlign: TextAlign.center,
+                          text: TextSpan(
+                            text:
+                                'Don’t invest unless you’re prepared and understand the risks involved in copy trading. ',
+                            style: TextStyle(
+                              color: RoqquColors.textSecondary,
+                              fontSize: 15,
+                              height: 1.4,
+                            ),
+                            children: [
+                              TextSpan(
+                                text: '\nLearn more',
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () => RiskBottomSheet.show(context),
+                                style: TextStyle(
+                                  color: RoqquColors.link,
+                                  fontSize: 15,
+                                  decoration: TextDecoration.underline,
+                                  fontWeight: FontWeight.w500,
+                                  height: 1.75,
+                                ),
+                              ),
+                              TextSpan(text: ' about the risks.'),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const Text(
+                        '',
+                        style: TextStyle(fontSize: 14, color: Colors.black87),
+                      ),
+                      const SizedBox(height: 16),
+
+                      // Checkbox
+                      InkWell(
+                        onTap: () => isChecked.value = !isChecked.value,
+
+                        child: Row(
+                          spacing: 16,
+                          children: [
+                            Obx(
+                              () => InkWell(
+                                onTap: () => isChecked.value = !isChecked.value,
+
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: RoqquColors.buttonColor,
+                                    borderRadius: BorderRadiusGeometry.circular(
+                                      8,
+                                    ),
+                                    border: Border.all(
+                                      color: RoqquColors.border,
+                                    ),
+                                  ),
+                                  padding: EdgeInsetsGeometry.all(4),
+                                  child: !isChecked.value
+                                      ? SizedBox(height: 16, width: 16)
+                                      : Icon(Icons.check_rounded, size: 16),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: RichText(
+                                text: TextSpan(
+                                  text:
+                                      'Check this box to agree to Roqqu’s copy trading',
+                                  style: GoogleFonts.encodeSans(
+                                    color: RoqquColors.text,
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: ' policy',
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () {},
+                                      style: GoogleFonts.encodeSans(
+                                        color: RoqquColors.link,
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+
+                      Obx(
+                        () => RoqquButton(
+                          text: "Proceed to copy trade",
+                          onPressed: !isChecked.value
+                              ? null
+                              : () {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => EnterAmountScreen(
+                                        trader: widget.trader,
+                                      ),
+                                    ),
+                                  );
+                                },
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              const SizedBox(height: 8),
-              Row(
-                children: [
-                  Expanded(
-                    child: OutlinedButton(
-                      onPressed: () {
-                        // Direct deposit action
-                      },
-                      child: const Text('Direct deposit'),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 24),
-            ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

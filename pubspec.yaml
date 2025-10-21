@@ -23,6 +23,7 @@ dependencies:
   google_fonts: ^6.3.2
   intl: ^0.20.2
   dio: ^5.9.0
+  local_auth: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -35,38 +36,38 @@ flutter:
   uses-material-design: true
 
   assets:
-     - assets/
-     - assets/fonts/
-     - assets/svg/
-     - assets/images/
+    - assets/
+    - assets/fonts/
+    - assets/svg/
+    - assets/images/
 
 
 
   fonts:
-   - family: FormaDJR
-     fonts:
-       - asset: assets/fonts/FormaDJR-Light.ttf
-         weight: 300
-       - asset: assets/fonts/FormaDJR-LightItalic.ttf
-         weight: 300
-         style: italic
-       - asset: assets/fonts/FormaDJR-Regular.ttf
-         weight: 400
-       - asset: assets/fonts/FormaDJR-Italic.ttf
-         weight: 400
-         style: italic
-       - asset: assets/fonts/FormaDJR-Medium.ttf
-         weight: 500
-       - asset: assets/fonts/FormaDJR-MediumItalic.ttf
-         weight: 500
-         style: italic
-       - asset: assets/fonts/FormaDJR-Bold.ttf
-         weight: 700
-       - asset: assets/fonts/FormaDJR-BoldItalic.ttf
-         weight: 700
-         style: italic
-       - asset: assets/fonts/FormaDJR-Black.ttf
-         weight: 900
-       - asset: assets/fonts/FormaDJR-BlackItalic.ttf
-         weight: 900
-         style: italic
+    - family: FormaDJR
+      fonts:
+        - asset: assets/fonts/FormaDJR-Light.ttf
+          weight: 300
+        - asset: assets/fonts/FormaDJR-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/FormaDJR-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/FormaDJR-Italic.ttf
+          weight: 400
+          style: italic
+        - asset: assets/fonts/FormaDJR-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/FormaDJR-MediumItalic.ttf
+          weight: 500
+          style: italic
+        - asset: assets/fonts/FormaDJR-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/FormaDJR-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/FormaDJR-Black.ttf
+          weight: 900
+        - asset: assets/fonts/FormaDJR-BlackItalic.ttf
+          weight: 900
+          style: italic

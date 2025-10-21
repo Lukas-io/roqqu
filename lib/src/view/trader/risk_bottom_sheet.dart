@@ -1,89 +1,160 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class RiskBottomSheet extends StatelessWidget {
+import '../../core/theme/color.dart';
+import '../widgets/roqqu_button.dart';
+
+class RiskBottomSheet extends StatefulWidget {
   const RiskBottomSheet({super.key});
 
   static void show(context) => showModalBottomSheet(
     context: context,
     isScrollControlled: true,
+    barrierColor: Colors.transparent,
     backgroundColor: Colors.transparent,
     builder: (_) => const RiskBottomSheet(),
   );
 
   @override
+  State<RiskBottomSheet> createState() => _RiskBottomSheetState();
+}
+
+class _RiskBottomSheetState extends State<RiskBottomSheet> {
+  final risks = [
+    CustomRiskTile(
+      title: 'Market risks',
+      content:
+          'All investments carry risks, including potential loss of capital.',
+    ),
+    CustomRiskTile(
+      title: 'Dependency on others',
+      content: 'Your profits may depend on the decisions of other traders.',
+    ),
+    CustomRiskTile(
+      title: 'Mismatched risk profiles',
+      content: 'Ensure your risk tolerance matches the trader you copy.',
+    ),
+    CustomRiskTile(
+      title: 'Control and understanding',
+      content:
+          'Copy trading requires understanding of strategies and controls.',
+    ),
+    CustomRiskTile(
+      title: 'Emotional decisions',
+      content:
+          'Avoid making impulsive decisions based on short-term market moves.',
+    ),
+    CustomRiskTile(
+      title: 'Costs involved',
+      content: 'Fees or spreads may apply, affecting overall returns.',
+    ),
+    CustomRiskTile(
+      title: 'Diversify',
+      content: 'Spread your investments to reduce risk exposure.',
+    ),
+    CustomRiskTile(
+      title: 'Execution risks',
+      content:
+          'Copy trading investments can be complex and may not execute as expected.',
+    ),
+  ];
+
+  @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
       expand: false,
-      initialChildSize: 0.8,
+      initialChildSize: 0.85,
       minChildSize: 0.5,
-      maxChildSize: 0.95,
+      snap: true,
+      snapSizes: [0.7, 0.85],
+      maxChildSize: 0.9,
       builder: (_, controller) {
-        return Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-          ),
-          child: ListView(
-            controller: controller,
-            padding: const EdgeInsets.all(16),
-            children: const [
-              Text(
-                'Risks involved in copy trading',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 8),
-              Text(
-                'Please make sure you read the following risks involved in copy trading before making a decision.',
-                style: TextStyle(fontSize: 14, color: Colors.black87),
-              ),
-              SizedBox(height: 16),
+        return Material(
+          type: MaterialType.transparency,
 
-              // Risk items as custom expansion tiles
-              CustomRiskTile(
-                title: 'Market risks',
-                content:
-                    'All investments carry risks, including potential loss of capital.',
-              ),
-              CustomRiskTile(
-                title: 'Dependency on others',
-                content:
-                    'Your profits may depend on the decisions of other traders.',
-              ),
-              CustomRiskTile(
-                title: 'Mismatched risk profiles',
-                content:
-                    'Ensure your risk tolerance matches the trader you copy.',
-              ),
-              CustomRiskTile(
-                title: 'Control and understanding',
-                content:
-                    'Copy trading requires understanding of strategies and controls.',
-              ),
-              CustomRiskTile(
-                title: 'Emotional decisions',
-                content:
-                    'Avoid making impulsive decisions based on short-term market moves.',
-              ),
-              CustomRiskTile(
-                title: 'Costs involved',
-                content:
-                    'Fees or spreads may apply, affecting overall returns.',
-              ),
-              CustomRiskTile(
-                title: 'Diversify',
-                content: 'Spread your investments to reduce risk exposure.',
-              ),
-              CustomRiskTile(
-                title: 'Execution risks',
-                content:
-                    'Copy trading investments can be complex and may not execute as expected.',
-              ),
-              CustomRiskTile(
-                title: 'I have read the risks',
-                content: 'Check this box to confirm you understand the risks.',
-                isCheckbox: true,
-              ),
-            ],
+          child: Container(
+            decoration: const BoxDecoration(
+              color: RoqquColors.background,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+            ),
+            child: Stack(
+              alignment: AlignmentGeometry.bottomCenter,
+              children: [
+                Positioned(
+                  top: 12,
+                  right: 12,
+                  child: IconButton.filled(
+                    onPressed: () => Navigator.pop(context),
+                    style: IconButton.styleFrom(
+                      padding: EdgeInsetsGeometry.all(8),
+
+                      minimumSize: Size.zero,
+                      backgroundColor: RoqquColors.buttonColor,
+                    ),
+                    icon: Icon(
+                      CupertinoIcons.xmark,
+                      color: Colors.white,
+                      size: 14,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsGeometry.symmetric(
+                    vertical: 24,
+                    horizontal: 18,
+                  ),
+
+                  child: SafeArea(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 32),
+                        Text(
+                          'Risks involved in copy trading',
+                          style: GoogleFonts.encodeSans(
+                            fontSize: 20,
+                            color: RoqquColors.text,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 24.0),
+                          child: Text(
+                            'Please make sure you read the following risks involved in copy trading before making a decision.',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: RoqquColors.textSecondary,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 16),
+                        Expanded(
+                          child: ListView.separated(
+                            controller: controller,
+                            padding: EdgeInsetsGeometry.symmetric(vertical: 12),
+                            itemBuilder: (context, index) => risks[index],
+                            separatorBuilder:
+                                (BuildContext context, int index) {
+                                  return Divider(color: RoqquColors.border);
+                                },
+                            itemCount: risks.length,
+                          ),
+                        ),
+                        RoqquButton(
+                          text: "I have read the risks",
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },
@@ -96,14 +167,8 @@ class RiskBottomSheet extends StatelessWidget {
 class CustomRiskTile extends StatefulWidget {
   final String title;
   final String content;
-  final bool isCheckbox;
 
-  const CustomRiskTile({
-    super.key,
-    required this.title,
-    required this.content,
-    this.isCheckbox = false,
-  });
+  const CustomRiskTile({super.key, required this.title, required this.content});
 
   @override
   State<CustomRiskTile> createState() => _CustomRiskTileState();
@@ -112,84 +177,55 @@ class CustomRiskTile extends StatefulWidget {
 class _CustomRiskTileState extends State<CustomRiskTile>
     with SingleTickerProviderStateMixin {
   bool isExpanded = false;
-  bool isChecked = false;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
       child: GestureDetector(
         onTap: () {
-          if (!widget.isCheckbox) {
-            setState(() {
-              isExpanded = !isExpanded;
-            });
-          } else {
-            setState(() {
-              isChecked = !isChecked;
-            });
-          }
+          setState(() {
+            isExpanded = !isExpanded;
+          });
         },
         child: AnimatedSize(
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeInOut,
-          child: Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Colors.grey[100],
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        widget.title,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
+          alignment: AlignmentGeometry.topCenter,
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      widget.title,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                    AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 200),
-                      child: widget.isCheckbox
-                          ? Checkbox(
-                              value: isChecked,
-                              onChanged: (val) {
-                                setState(() {
-                                  isChecked = val ?? false;
-                                });
-                              },
-                              key: ValueKey(isChecked),
-                            )
-                          : Icon(
-                              isExpanded
-                                  ? Icons.keyboard_arrow_up
-                                  : Icons.keyboard_arrow_down,
-                              key: ValueKey(isExpanded),
-                            ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 6),
-                if (!widget.isCheckbox)
-                  AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 300),
-                    child: isExpanded
-                        ? Text(
-                            widget.content,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              color: Colors.black87,
-                            ),
-                          )
-                        : const SizedBox.shrink(),
                   ),
-              ],
-            ),
+                  AnimatedRotation(
+                    turns: isExpanded ? 0.5 : 0,
+                    duration: const Duration(milliseconds: 250),
+                    curve: Curves.easeInOut,
+                    child: const Icon(Icons.keyboard_arrow_down),
+                  ),
+                ],
+              ),
+
+              if (isExpanded) ...[
+                const SizedBox(height: 12),
+                Text(
+                  widget.content,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: RoqquColors.textSecondary,
+                  ),
+                ),
+              ] else
+                const SizedBox.shrink(),
+            ],
           ),
         ),
       ),

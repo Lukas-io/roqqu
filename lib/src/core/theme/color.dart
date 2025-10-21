@@ -13,6 +13,7 @@ class RoqquColors {
   static const Color buttonColor = Color(0xFF2A2F36);
   static const Color active = Color(0xFF17B26A);
   static const Color error = Color(0xFFF04438);
+  static const Color warning = Color(0xFFF79009);
   static const Color activeBlue = Color(0xFF1179F1);
   static const Color link = Color(0xFF85D1F0);
 

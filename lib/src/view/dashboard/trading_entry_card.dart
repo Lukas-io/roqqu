@@ -73,7 +73,7 @@ class TradingEntryCard extends StatelessWidget {
                           .join()
                           .toUpperCase(),
                       size: 20,
-                      isPro: true ?? entry.traderType.isNotEmpty,
+                      isPro: entry.traderType.length % 3 == 2,
                     ),
                     SizedBox(width: 8),
                     Text(

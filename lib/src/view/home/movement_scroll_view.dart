@@ -13,24 +13,14 @@ import '../widgets/minimal_price_chart_painter.dart';
 
 class MovementScrollView extends StatelessWidget {
   final String title;
+  final bool? gainer;
 
-  const MovementScrollView({super.key, required this.title});
+  const MovementScrollView({super.key, required this.title, this.gainer});
 
   @override
   Widget build(BuildContext context) {
     final CryptoController controller = Get.find<CryptoController>();
-    final now = DateTime.now();
 
-    final todayMidnight = DateTime(now.year, now.month, now.day - 1);
-
-    // print(
-    //   controller.cryptoDataMap.entries.first.value.historicalData
-    //       .where((price) {
-    //         return price.timestamp.isAfter(todayMidnight);
-    //       })
-    //       .toList()
-    //       .length,
-    // );
     return Column(
       spacing: 12,
       children: [
@@ -66,10 +56,39 @@ class MovementScrollView extends StatelessWidget {
             horizontal: RoqquConstants.horizontalPadding,
           ),
           scrollDirection: Axis.horizontal,
-          child: Obx(
-            () => Row(
+          child: Obx(() {
+            var data = controller.cryptoDataMap.entries;
+
+            if (gainer != null) {
+              if (gainer!) {
+                data = data.where(
+                  (entry) => !entry.value.priceChangePercent24h.isNegative,
+                );
+              } else {
+                data = data.where(
+                  (entry) => entry.value.priceChangePercent24h.isNegative,
+                );
+              }
+            }
+            if (data.isEmpty) {
+              return SizedBox(
+                height: 75,
+                child: Center(
+                  child: Text(
+                    "No ${title.toLowerCase()} at the moment",
+                    style: GoogleFonts.encodeSans(
+                      fontSize: 14,
+                      color: RoqquColors.textSecondary,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              );
+            }
+
+            return Row(
               spacing: 16,
-              children: controller.cryptoDataMap.entries.map((entry) {
+              children: data.map((entry) {
                 return Container(
                   padding: EdgeInsets.all(16),
                   width: 160,
@@ -113,12 +132,14 @@ class MovementScrollView extends StatelessWidget {
                           Text(
                             "${entry.value.priceChangePercent24h.toPrecision(2)}%",
                             style: TextStyle(
-                              color: getChangeColor(90),
+                              color: getChangeColor(
+                                entry.value.priceChangePercent24h,
+                              ),
                               fontSize: 14,
                             ),
                           ),
 
-                          changeArrow(90),
+                          changeArrow(entry.value.priceChangePercent24h),
                           Spacer(),
                           CustomPaint(
                             painter: MinimalPriceChartPainter(
@@ -140,8 +161,8 @@ class MovementScrollView extends StatelessWidget {
                   ),
                 );
               }).toList(),
-            ),
-          ),
+            );
+          }),
         ),
       ],
     );

@@ -58,6 +58,7 @@ class _DashboardContentState extends State<DashboardContent> {
                   _currentTabIndex.value = index;
                 },
                 unselectedLabelColor: RoqquColors.text,
+                isScrollable: true,
 
                 indicatorColor: RoqquColors.link,
                 dividerHeight: 0,

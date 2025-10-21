@@ -21,6 +21,7 @@ class TraderScreen extends StatelessWidget {
           "Trading details",
           style: TextStyle(color: RoqquColors.text, fontSize: 18),
         ),
+        centerTitle: true,
       ),
       body: Column(
         children: [
@@ -29,7 +30,7 @@ class TraderScreen extends StatelessWidget {
               padding: EdgeInsetsGeometry.all(RoqquConstants.horizontalPadding),
               child: Column(
                 spacing: 12,
-                children: [TraderHeader(trader), TraderContent()],
+                children: [TraderHeader(trader), TraderContent(trader)],
               ),
             ),
           ),
@@ -43,7 +44,7 @@ class TraderScreen extends StatelessWidget {
               child: RoqquButton(
                 text: 'Copy trade',
                 onPressed: () {
-                  CopyTradeBottomSheet.show(context);
+                  CopyTradeBottomSheet.show(context, trader);
                 },
               ),
             ),

@@ -26,7 +26,7 @@ class TraderHeader extends StatelessWidget {
                   .map((name) => name.isNotEmpty ? name[0] : '')
                   .join()
                   .toUpperCase(),
-              isPro: trader.copiers.isEven,
+              isPro: trader.isPro,
               size: 50,
             ),
             Column(

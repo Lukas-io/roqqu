@@ -20,8 +20,9 @@ class RoqquAssets {
   static const String dashboardImage = "$_images/dashboard.png";
   static const String traderImage = "$_images/trader.png";
   static const String proBadgeImage = "$_images/pro_badge.png";
-  static const String copySuccessImage = "$_images/copySuccess.png";
-  static const String importantMessageImage = "$_images/importantMessage.png";
+  static const String copySuccessImage = "$_images/copy_success.png";
+  static const String importantMessageImage = "$_images/important_message.png";
+  static const String pinLockImage = "$_images/pin_lock.png";
 
   //Svg
   static const String dropdownSvg = "$_svg/dropdown.svg";
@@ -45,5 +46,9 @@ class RoqquAssets {
   static const String copyDashboardSvg = "$_svg/copy_dashboard.svg";
   static const String peopleSvg = "$_svg/people.svg";
   static const String arrowSvg = "$_svg/arrow.svg";
+  static const String rateSvg = "$_svg/rate.svg";
+  static const String chartSvg = "$_svg/chart.svg";
   static const String verifiedBannerSvg = "$_svg/verified_banner.svg";
+  static const String backArrowSvg = "$_svg/back_arrow.svg";
+  static const String biometricsSvg = "$_svg/biometrics.svg";
 }

@@ -30,7 +30,7 @@ class ChartTab extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      "Copy trading PNL",
+                      isTrader ? "ROI" : "Copy trading PNL",
                       style: GoogleFonts.encodeSans(
                         fontSize: 13,
                         fontWeight: FontWeight.bold,
@@ -75,7 +75,9 @@ class ChartTab extends StatelessWidget {
                     return CustomPaint(
                       painter: PriceChartPainter(
                         pricePoints: crypto?.historicalData ?? [],
-                        lineColor: getChangeColor(crypto?.currentPrice ?? 0),
+                        lineColor: getChangeColor(
+                          crypto?.priceChangePercent24h ?? 0,
+                        ),
                       ),
                       size: Size(double.infinity, 200),
                     );
@@ -84,56 +86,56 @@ class ChartTab extends StatelessWidget {
               ],
             ),
           ),
-          Divider(color: RoqquColors.background, height: 4, thickness: 4),
-          Padding(
-            padding: EdgeInsetsGeometry.all(16),
-            child: Row(
-              children: [
-                Text(
-                  "Trading History",
-                  style: GoogleFonts.encodeSans(
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold,
-                    color: RoqquColors.text,
-                  ),
-                ),
-                Spacer(),
-                TextButton(
-                  onPressed: () {},
-                  style: TextButton.styleFrom(
-                    backgroundColor: RoqquColors.buttonColor,
-                    minimumSize: Size.zero,
-                    padding: EdgeInsetsGeometry.all(8),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadiusGeometry.circular(8),
+          if (!isTrader) ...[
+            Divider(color: RoqquColors.background, height: 4, thickness: 4),
+            Padding(
+              padding: EdgeInsetsGeometry.all(16),
+              child: Row(
+                children: [
+                  Text(
+                    "Trading History",
+                    style: GoogleFonts.encodeSans(
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                      color: RoqquColors.text,
                     ),
                   ),
-                  child: Row(
-                    children: [
-                      Text(
-                        '7 days',
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w400,
+                  Spacer(),
+                  TextButton(
+                    onPressed: () {},
+                    style: TextButton.styleFrom(
+                      backgroundColor: RoqquColors.buttonColor,
+                      minimumSize: Size.zero,
+                      padding: EdgeInsetsGeometry.all(8),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadiusGeometry.circular(8),
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        Text(
+                          '7 days',
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w400,
+                            color: RoqquColors.text,
+                          ),
+                        ),
+                        Icon(
+                          Icons.keyboard_arrow_down,
+                          size: 16,
                           color: RoqquColors.text,
                         ),
-                      ),
-                      Icon(
-                        Icons.keyboard_arrow_down,
-                        size: 16,
-                        color: RoqquColors.text,
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          if (!isTrader)
             ...tradingHistory
                 .take(3)
-                .map((entry) => TradingEntryCard(entry: entry))
-          else ...[
+                .map((entry) => TradingEntryCard(entry: entry)),
+          ] else ...[
             TradingSection(),
           ],
           SizedBox(height: 16),
@@ -157,7 +159,7 @@ class TradingSection extends StatelessWidget {
           child: Row(
             children: [
               Text(
-                "Trading History",
+                "Assets allocation",
                 style: GoogleFonts.encodeSans(
                   fontSize: 13,
                   fontWeight: FontWeight.bold,

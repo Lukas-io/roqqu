@@ -11,6 +11,8 @@ class DashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
+
         title: Text(
           "My dashboard",
           style: TextStyle(color: RoqquColors.text, fontSize: 18),

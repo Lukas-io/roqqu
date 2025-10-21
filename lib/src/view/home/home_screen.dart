@@ -98,8 +98,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                 CopyTradingBanner(),
                                 UpdatesScrollView(),
                                 ListedCoinsPreviewWidget(),
-                                MovementScrollView(title: "Top Gainers"),
-                                MovementScrollView(title: "Top Losers"),
+                                MovementScrollView(
+                                  title: "Top Gainers",
+                                  gainer: true,
+                                ),
+                                MovementScrollView(
+                                  title: "Top Losers",
+                                  gainer: false,
+                                ),
                                 SocialMetricsWidget(),
                                 MovementScrollView(title: "New Coins in Roqqu"),
                                 NewsPreviewWidget(),

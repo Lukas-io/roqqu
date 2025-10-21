@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -81,8 +82,9 @@ class CryptoController extends GetxController {
           );
 
           cryptoDataMap[symbol] = updated;
+          await Future.delayed(500.ms);
 
-          update(); // UI updates as each Future completes
+          update();
         }),
       );
 

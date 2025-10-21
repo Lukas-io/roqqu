@@ -37,6 +37,7 @@ class _RoqquButtonState extends State<RoqquButton>
     final isDisabled = widget.isDisabled || widget.onPressed == null;
 
     return SafeArea(
+      top: false,
       child: GestureDetector(
         onTapDown: isDisabled ? null : _onTapDown,
         onTapUp: isDisabled ? null : _onTapUp,
@@ -46,31 +47,30 @@ class _RoqquButtonState extends State<RoqquButton>
           scale: _scale,
           duration: const Duration(milliseconds: 100),
           curve: Curves.easeOut,
-          child: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 12),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              gradient: isDisabled
-                  ? LinearGradient(
-                      colors: [Colors.grey.shade400, Colors.grey.shade500],
-                    )
-                  : const LinearGradient(
-                      colors: [
-                        Color(0xFF483BEB),
-                        Color(0xFF7847E1),
-                        Color(0xFFDD568D),
-                      ],
-                      stops: [0.0, 0.48, 0.96],
-                    ),
-            ),
-            child: Text(
-              widget.text,
-              style: const TextStyle(
-                fontSize: 15,
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
+          child: Opacity(
+            opacity: isDisabled ? 0.65 : 1,
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                gradient: const LinearGradient(
+                  colors: [
+                    Color(0xFF483BEB),
+                    Color(0xFF7847E1),
+                    Color(0xFFDD568D),
+                  ],
+                  stops: [0.0, 0.48, 0.96],
+                ),
+              ),
+              child: Text(
+                widget.text,
+                style: const TextStyle(
+                  fontSize: 15,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
           ),

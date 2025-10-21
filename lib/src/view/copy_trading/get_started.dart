@@ -22,6 +22,8 @@ class _GetStartedCopyTradingState extends State<GetStartedCopyTrading> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
+
         title: Text(
           "Copy trading",
           style: TextStyle(color: RoqquColors.text, fontSize: 18),

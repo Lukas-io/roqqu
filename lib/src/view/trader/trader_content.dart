@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:roqqu/src/core/assets.dart';
+import 'package:roqqu/src/model/copy_trader.dart';
 import 'package:roqqu/src/view/trader/all_trades_tab.dart';
 
 import '../../core/theme/color.dart';
@@ -20,7 +24,9 @@ enum TraderTabs {
 }
 
 class TraderContent extends StatefulWidget {
-  const TraderContent({super.key});
+  final CopyTrader trader;
+
+  const TraderContent(this.trader, {super.key});
 
   @override
   State<TraderContent> createState() => _TraderContentState();
@@ -43,14 +49,62 @@ class _TraderContentState extends State<TraderContent> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            if (widget.trader.isPro)
+              Container(
+                padding: EdgeInsetsGeometry.symmetric(
+                  vertical: 16,
+                  horizontal: 16,
+                ),
+                decoration: BoxDecoration(
+                  color: RoqquColors.background,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(16),
+                    topRight: Radius.circular(16),
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Certified PROtrader',
+                      style: GoogleFonts.encodeSans(
+                        fontSize: 14,
+                        color: RoqquColors.text,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          child: Row(
+                            children: [
+                              SvgPicture.asset(RoqquAssets.rateSvg),
+                              Text(
+                                'High win rate',
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  color: RoqquColors.active,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
             Container(
               padding: const EdgeInsets.all(2),
               decoration: BoxDecoration(
                 color: RoqquColors.background,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(16),
-                  topRight: Radius.circular(16),
-                ),
+
+                borderRadius: widget.trader.isPro
+                    ? null
+                    : const BorderRadius.only(
+                        topLeft: Radius.circular(16),
+                        topRight: Radius.circular(16),
+                      ),
               ),
               child: TabBar(
                 labelColor: RoqquColors.text,
@@ -62,6 +116,7 @@ class _TraderContentState extends State<TraderContent> {
                 indicatorColor: RoqquColors.link,
                 dividerHeight: 0,
                 indicatorWeight: 1,
+                isScrollable: true,
                 indicatorAnimation: TabIndicatorAnimation.elastic,
                 indicatorSize: TabBarIndicatorSize.tab,
                 labelPadding: EdgeInsets.zero,

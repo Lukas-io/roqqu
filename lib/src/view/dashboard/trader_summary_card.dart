@@ -40,7 +40,7 @@ class TraderSummaryCard extends StatelessWidget {
                 ),
               ),
               Spacer(),
-              if (Random().nextBool())
+              if (trader.isPro)
                 Image.asset(RoqquAssets.proBadgeImage, width: 30, height: 30),
             ],
           ),

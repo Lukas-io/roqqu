@@ -30,14 +30,21 @@ Color getColorFromString(String value) {
 /// PriceFormatter.format(12345.678); // €12,345.68
 /// PriceFormatter.format(500);       // €500.00
 /// ```
-String format(num value, {bool showCents = true, String currency = "\$"}) {
+String format(
+  num value, {
+  bool showCents = true,
+  String currency = "\$",
+  bool forceCent = false,
+}) {
   if (value.abs() >= 100) {
     showCents = false;
   }
   NumberFormat formatter;
   formatter = NumberFormat('#,##0.00', 'en_US');
-  if (value.abs() < 1) {
-    formatter = NumberFormat('#,##0.000', 'en_US');
+
+  if (forceCent) {
+    formatter = NumberFormat('#,##0.00', 'en_US');
+    showCents = true;
   }
 
   bool isNegative = value < 0;
@@ -63,7 +70,7 @@ Color getChangeColor(double value) {
 
 Widget changeArrow(double value, {bool isSquiggle = false, double size = 8}) {
   return Transform.rotate(
-    angle: value < 0 ? 270 * math.pi / 180 : 0,
+    angle: value < 0 ? 90 * math.pi / 180 : 0,
     child: SvgPicture.asset(
       isSquiggle ? RoqquAssets.arrowSvg : RoqquAssets.changeArrowSvg,
       color: getChangeColor(value),
